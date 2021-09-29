@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 
-
 namespace Repositorio
 {
     public class RepoMensualidad : IRepositorio<Mensualidad>

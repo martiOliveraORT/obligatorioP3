@@ -4,9 +4,9 @@ C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDepo
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.dll
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.pdb
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
-C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache

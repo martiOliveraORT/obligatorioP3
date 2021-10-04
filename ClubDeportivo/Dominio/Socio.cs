@@ -12,5 +12,6 @@ namespace Dominio
         public string Nombre { get; set; }
         public DateTime FechaNac { get; set; }
         public DateTime FechaIngreso { get; set; }
+        public bool Estado { get; set; }
     }
 }

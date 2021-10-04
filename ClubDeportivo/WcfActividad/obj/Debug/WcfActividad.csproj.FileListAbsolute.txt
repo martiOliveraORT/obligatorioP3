@@ -1,0 +1,7 @@
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\bin\WcfActividad.dll.config
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\bin\WcfActividad.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\bin\WcfActividad.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\obj\Debug\WcfActividad.csproj.AssemblyReference.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\obj\Debug\WcfActividad.csproj.CoreCompileInputs.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\obj\Debug\WcfActividad.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfActividad\obj\Debug\WcfActividad.pdb

@@ -10,3 +10,8 @@ C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDe
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csprojAssemblyReference.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb

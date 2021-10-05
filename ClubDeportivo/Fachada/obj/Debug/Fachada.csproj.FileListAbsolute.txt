@@ -20,3 +20,15 @@ C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDe
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.CopyComplete
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.dll
 C:\Users\Martina\Desktop\ORT\Programacion 3\repoObligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Fachada.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Fachada.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Dominio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Dominio.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.AssemblyReference.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.CoreCompileInputs.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.CopyComplete
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.dll.config

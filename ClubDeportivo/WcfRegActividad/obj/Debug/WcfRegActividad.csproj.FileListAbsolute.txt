@@ -1,0 +1,13 @@
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\WcfRegActividad.dll.config
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\WcfRegActividad.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\WcfRegActividad.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\obj\Debug\WcfRegActividad.csproj.AssemblyReference.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\obj\Debug\WcfRegActividad.csproj.CoreCompileInputs.cache
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\obj\Debug\WcfRegActividad.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\obj\Debug\WcfRegActividad.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\Dominio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\Repositorio.dll
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\Dominio.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\Repositorio.pdb
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\bin\Repositorio.dll.config
+C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\WcfRegActividad\obj\Debug\WcfRegActividad.csproj.CopyComplete

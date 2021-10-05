@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actividad.cs" />
+    <Compile Include="Horario.cs" />
+    <Compile Include="RegistroActividad.cs" />
     <Compile Include="Cuponera.cs" />
     <Compile Include="Mensualidad.cs" />
     <Compile Include="PaseLibre.cs" />

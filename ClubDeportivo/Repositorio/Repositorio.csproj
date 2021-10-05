@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConexionBD.cs" />
     <Compile Include="RepoRegistroActividad.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="IRepositorio.cs" />

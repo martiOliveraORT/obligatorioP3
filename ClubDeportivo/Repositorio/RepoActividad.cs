@@ -316,6 +316,7 @@ namespace Repositorio
                         // SOLO ME GUARDO DIA Y HORA
                         horas.Add(new Horario
                         {
+                            Actividad = (string)filas["actividad"],
                             Dia = (string)filas["dia"],
                             Hora = (int)filas["hora"],
 

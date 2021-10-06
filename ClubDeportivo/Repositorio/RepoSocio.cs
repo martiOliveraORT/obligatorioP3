@@ -31,11 +31,11 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@fechaIng", obj.FechaIngreso);
             if (obj.Estado)
             {
-                estado = 0;
+                estado = 1;
             }
             else
             {
-                estado = 1;
+                estado = 0;
             }
             cmd.Parameters.AddWithValue("@fechaIng", estado);
 
@@ -72,10 +72,10 @@ namespace Repositorio
             SqlConnection cn = manejadorConexion.CrearConexion();
 
             bool resultado = false;
-            //Se busca al socio, y se le cambia el estado a false (bit 1)
+            //Se busca al socio, y se le cambia el estado a false (bit 0)
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"UPDATE Socios SET estado = 1 WHERE cedula = @ced"
+                CommandText = @"UPDATE Socios SET estado = 0 WHERE cedula = @ced"
             };
 
             cmd.Parameters.AddWithValue("@ced", id);
@@ -112,7 +112,7 @@ namespace Repositorio
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
-            bool resultado = false;
+            bool resultado;
 
             SqlCommand cmd = new SqlCommand
             {

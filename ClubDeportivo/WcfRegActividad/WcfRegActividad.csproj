@@ -87,6 +87,10 @@
       <Project>{186c8cff-a385-4c24-9ba8-c4632d54b409}</Project>
       <Name>Dominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Fachada\Fachada.csproj">
+      <Project>{06075803-a859-4e9c-b983-e7d29d9a9588}</Project>
+      <Name>Fachada</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Repositorio\Repositorio.csproj">
       <Project>{e4d1944e-1d1a-4112-9633-f2aa376d90e5}</Project>
       <Name>Repositorio</Name>

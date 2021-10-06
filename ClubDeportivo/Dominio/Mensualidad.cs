@@ -8,8 +8,10 @@ namespace Dominio
 {
     public abstract class Mensualidad
     {
-        public int Costo { get; set; }
+        public int Id { get; set; }
+        public decimal Costo { get; set; }
         public DateTime Fecha { get; set; }
-        public bool Estado { get; set; }
+        public Socio Socio { get; set; }
+        public DateTime Vencimiento { get; set; }
     }
 }

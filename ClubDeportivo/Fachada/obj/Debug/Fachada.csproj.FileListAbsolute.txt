@@ -32,3 +32,14 @@ C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Deb
 C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.dll
 C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.pdb
 C:\Users\Meerkat\Desktop\obligatorio\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.dll.config
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Fachada.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Fachada.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Dominio.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Dominio.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.pdb
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\bin\Debug\Repositorio.dll.config
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.AssemblyReference.cache
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.csproj.CoreCompileInputs.cache
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.dll
+C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Fachada\obj\Debug\Fachada.pdb

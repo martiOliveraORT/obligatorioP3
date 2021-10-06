@@ -8,8 +8,7 @@ namespace Dominio
 {
     public class Cuponera : Mensualidad
     {
-        public int PrecioUnitario { get; set; }
-        public List<Actividad> Actividades { get; set; }
-        public int Descuento { get; set; }
+        public int IngresosDisponibles { get; set; }
+        public decimal Descuento { get; set; }
     }
 }

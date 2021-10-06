@@ -8,6 +8,6 @@ namespace Dominio
 {
     public class PaseLibre : Mensualidad
     {
-        public int Descuento { get; set; }
+        public decimal Descuento { get; set; }
     }
 }

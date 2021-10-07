@@ -29,6 +29,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@fechaIng", obj.FechaIngreso);
+            cmd.Connection = cn;
             if (obj.Estado)
             {
                 estado = 1;
@@ -37,7 +38,7 @@ namespace Repositorio
             {
                 estado = 0;
             }
-            cmd.Parameters.AddWithValue("@fechaIng", estado);
+            cmd.Parameters.AddWithValue("@estado", estado);
 
             try
             {
@@ -79,6 +80,7 @@ namespace Repositorio
             };
 
             cmd.Parameters.AddWithValue("@ced", id);
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -121,6 +123,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@ced", obj.Cedula);
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -160,6 +163,7 @@ namespace Repositorio
             {
                 CommandText = @"SELECT * FROM Socios ORDER BY nombre ASC, cedula DESC"
             };
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -214,30 +218,21 @@ namespace Repositorio
                 CommandText = @"SELECT * FROM Socios WHERE cedula = @ced"
             };
             cmd.Parameters.AddWithValue("@ced", id);
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
                 SqlDataReader reader = cmd.ExecuteReader();
-                bool estado = false;
                 if (reader.Read())
                 {
                     //Pregunto si el atributo de la base de dato esta en true/false (0 / 1)
-
-                    if((int)reader["estado"] == 0)
-                    {
-                        estado = true;
-                    }else if((int)reader["estado"] == 1)
-
-                    {
-                        estado = false;
-                    }
                     socio = new Socio
                     {
                         Cedula = (int)reader["cedula"],
                         Nombre = (string)reader["nombre"],
                         FechaNac = (DateTime)reader["fechaNac"],
                         FechaIngreso = (DateTime)reader["fechaIng"],
-                        Estado = estado
+                        Estado = (Boolean)reader["estado"],
                     };
                 }
                 return socio;

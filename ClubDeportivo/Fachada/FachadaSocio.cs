@@ -41,18 +41,21 @@ namespace Fachada
             return respuesta;
         }
 
-        public string EliminarSocio(int cedula)
+        public Socio EliminarSocio(int cedula)
         {
-            string respuesta;
+            Socio respuesta;
             bool resCedula = ValidarCedula(cedula);
             Socio resRegistro = ValidarSocio(cedula);
             if (!resCedula)
             {
-                respuesta = "Formato incorrecto de cedula";
+                respuesta = null;
             }
             else if (resRegistro == null)
             {
-                respuesta = "No existe este socio en la BD";
+                respuesta = null;
+            }else if (!resRegistro.Estado)
+            {
+                respuesta = null;
             }
             else
             {
@@ -60,11 +63,11 @@ namespace Fachada
                 bool retornoBaja = repo.Baja(cedula);
                 if (!retornoBaja)
                 {
-                    respuesta = "Error al bajar en BD";
+                    respuesta = null;
                 }
                 else
                 {
-                    respuesta = "Se borro correctamente el socio";
+                    respuesta = ValidarSocio(cedula);
                 }
             }
             return respuesta;           

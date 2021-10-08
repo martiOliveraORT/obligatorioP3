@@ -27,7 +27,8 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@ced", obj.Socio);
             cmd.Parameters.AddWithValue("@nomAct", obj.Nombre);
             cmd.Parameters.AddWithValue("@fecha", obj.Fecha);
-  
+            cmd.Connection = cn;
+
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -78,6 +79,8 @@ namespace Repositorio
                 //LOS TRAIGOS DE MANERA DESC PARA QUE LA ULTIMA FECHA VENGA PRIMERA
                 CommandText = @"SELECT * FROM RegistrosActividad ORDER BY fecha DESC"
             };
+            cmd.Connection = cn;
+
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -128,7 +131,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@socio", socio);
             cmd.Parameters.AddWithValue("@act", act);
             cmd.Parameters.AddWithValue("@fecha", fecha);
-
+            cmd.Connection = cn;
 
             try
             {

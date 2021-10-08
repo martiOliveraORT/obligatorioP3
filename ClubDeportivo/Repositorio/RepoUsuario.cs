@@ -27,6 +27,7 @@ namespace Repositorio
 
             cmd.Parameters.AddWithValue("@email", obj.Email);
             cmd.Parameters.AddWithValue("@pass", obj.Password);
+            cmd.Connection = cn;
 
             try
             {
@@ -90,6 +91,7 @@ namespace Repositorio
             };
 
             cmd.Parameters.AddWithValue("@email", email);
+            cmd.Connection = cn;
 
             try
             {

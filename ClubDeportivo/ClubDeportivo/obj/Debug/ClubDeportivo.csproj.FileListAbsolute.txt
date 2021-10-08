@@ -328,3 +328,6 @@ C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Clu
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.CopyComplete
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.dll
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.pdb
+C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Fachada.dll
+C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Fachada.pdb
+C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Repositorio.dll.config

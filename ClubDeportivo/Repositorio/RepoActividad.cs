@@ -29,7 +29,6 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@eMax", obj.EdadMax);
             cmd.Parameters.AddWithValue("@dur", obj.Duracion);
             cmd.Parameters.AddWithValue("@cupos", obj.CuposDisponibles);
-            cmd.Connection = cn;
 
             // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
             // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
@@ -72,8 +71,7 @@ namespace Repositorio
             };
             //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
             cmd.Parameters.AddWithValue("@id", id);
-            cmd.Connection = cn;
-
+             
             // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
             // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
             // SI FALLA TRAEMOS Y MOSTRAMOS EL ERROR
@@ -118,7 +116,6 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@eMax", obj.EdadMax);
             cmd.Parameters.AddWithValue("@dur", obj.Duracion);
             cmd.Parameters.AddWithValue("@cupos", obj.CuposDisponibles);
-            cmd.Connection = cn;
 
             // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
             // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
@@ -160,8 +157,6 @@ namespace Repositorio
                
                 CommandText = @"SELECT * FROM Actividades "
             };
-            cmd.Connection = cn;
-
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -206,7 +201,8 @@ namespace Repositorio
                 CommandText = @"SELECT * FROM Actividades WHERE id = @act "
             };
             cmd.Parameters.AddWithValue("@act", id);
-            cmd.Connection = cn;
+            
+
 
             try
             {
@@ -253,7 +249,8 @@ namespace Repositorio
                 CommandText = @"SELECT * FROM Actividades WHERE nombre = @act "
             };
             cmd.Parameters.AddWithValue("@act", n);
-            cmd.Connection = cn;
+
+
 
             try
             {
@@ -307,6 +304,8 @@ namespace Repositorio
             // SETEAMOS EL PARAMETO CONNECTION CON EL valor del cn
             // Esto es IMPORTANTE!!!! si no, no se conecta
             cmd.Connection = cn;
+
+
 
             try
             {

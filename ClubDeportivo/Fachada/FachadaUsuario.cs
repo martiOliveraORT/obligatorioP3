@@ -10,22 +10,7 @@ namespace Fachada
 {
     public class FachadaUsuario
     {
-        public Usuario Login(string email, string password)
-        {
-            RepoUsuario repoUser = new RepoUsuario();
-            Usuario user = repoUser.BuscarPorEmail(email);
-
-            if (user.Password == password)
-            {
-                return user;
-            }
-            else
-            {
-                return user = null;
-            }
-        }
-
-        public string AltaUsuario(string email, string password)
+        public static string AltaUsuario(string email, string password)
         {
             string msj = ValidarCamposAltaUsuario(email, password);
             
@@ -100,37 +85,53 @@ namespace Fachada
         //contraseña con al menos 6 caracteres que incluyan letras mayúsculas y minúsculas(al menos una de cada una) y dígitos(0 al 9)
         public static bool ValidarPassword(string password)
         {
-            bool ok = false;            
+            bool ok = false;
+            bool mayus = false;
+            bool minus = false;
+            bool num = false;
 
             string letrasMayus = "ABCDEFGHIJKLMNÑOPKRSTUVWXYZ";
             string letrasMin = letrasMayus.ToLower();
             string numeros = "0123456789";
 
-            bool mayus = Comparador(password, letrasMayus);
-            bool minus = Comparador(password, letrasMin);
-            bool num = Comparador(password, numeros);
+            for (int i = 0; i < password.Length; i++)
+            {
+                for (int j = 0; j < letrasMayus.Length; j++)
+                {
+                    if (letrasMayus[j] == password[i])
+                    {
+                        mayus = true;
+                    }
+                }
+            }
+
+            for (int i = 0; i < password.Length; i++)
+            {
+                for (int j = 0; j < letrasMin.Length; j++)
+                {
+                    if (letrasMin[j] == password[i])
+                    {
+                        minus = true;
+                    }
+                }
+            }
+
+            for (int i = 0; i < password.Length; i++)
+            {
+                for (int j = 0; j < numeros.Length; j++)
+                {
+                    if (numeros[j] == password[i])
+                    {
+                        num = true;
+                    }
+                }
+            }
 
             if (password.Length >= 6 && mayus && minus && num)
             {
                 ok = true;
             }
 
-            return ok;
-        }
-
-        public static bool Comparador(string t1, string t2)
-        {
-            bool ok = false;
-            for (int i = 0; i < t1.Length; i++)
-            {
-                for (int j = 0; j < t2.Length; j++)
-                {
-                    if (t2[j] == t1[i])
-                    {
-                        ok = true;
-                    }
-                }
-            }
             return ok;
         }
     }

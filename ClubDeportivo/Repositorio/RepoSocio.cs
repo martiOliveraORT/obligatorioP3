@@ -38,7 +38,6 @@ namespace Repositorio
                 estado = 0;
             }
             cmd.Parameters.AddWithValue("@fechaIng", estado);
-            cmd.Connection = cn;
 
             try
             {
@@ -80,8 +79,6 @@ namespace Repositorio
             };
 
             cmd.Parameters.AddWithValue("@ced", id);
-            cmd.Connection = cn;
-
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -124,8 +121,6 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@ced", obj.Cedula);
-            cmd.Connection = cn;
-
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -165,7 +160,6 @@ namespace Repositorio
             {
                 CommandText = @"SELECT * FROM Socios ORDER BY nombre ASC, cedula DESC"
             };
-            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);

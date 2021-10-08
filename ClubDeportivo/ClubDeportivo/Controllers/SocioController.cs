@@ -41,15 +41,15 @@ namespace ClubDeportivo.Controllers
         [HttpPost]
         public ActionResult BajarSocio(int Cedula)
         {
-            Socio socio = fSocio.EliminarSocio(Cedula);
+            var (socio, msj) = fSocio.EliminarSocio(Cedula);
 
             if(socio == null)
             {
-                ViewBag.mensaje = "No se pudo eliminar el socio";
+                ViewBag.mensaje = msj;
             }
             else
             {
-                ViewBag.mensaje = "Se borro correctamente";
+                ViewBag.mensaje = msj;
             }
 
             return View(socio);

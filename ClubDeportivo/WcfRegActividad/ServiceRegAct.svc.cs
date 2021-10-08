@@ -4,63 +4,200 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Text;
+using System.Globalization;
 using Dominio;
+using System.Text.RegularExpressions;
 using Repositorio;
 
 namespace WcfRegActividad
 {
-    // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de clase "ServiceRegAct" en el código, en svc y en el archivo de configuración a la vez.
-    // NOTA: para iniciar el Cliente de prueba WCF para probar este servicio, seleccione ServiceRegAct.svc o ServiceRegAct.svc.cs en el Explorador de soluciones e inicie la depuración.
     public class ServiceRegAct : IServiceRegAct
     {
-        RepoRegistroActividad RepoReg = new RepoRegistroActividad();
-        RepoActividad RegHoras = new RepoActividad();
+        // Variables para poder usar los llamados a la BD en sus respectivos REPO
+        private RepoRegistroActividad RepoReg = new RepoRegistroActividad();
+        private RepoActividad RepoHoras = new RepoActividad();
+        private RepoSocio RepoSocios = new RepoSocio();
 
-        public bool AltaRegistro(DtoRegistro nvoRegistro)
+
+
+        // Encargada de generar el alta 
+        public bool AltaRegistro(int ci, DtoHorario regAct)
         {
-            if (nvoRegistro == null)
-            {
-                return false;
-            }
-            else
-            {
-                RegistroActividad reg = nvoRegistro.ConvertirARegistro();
-                return RepoReg.Alta(reg);
-            }
+            bool successReg = false;
+            // Busco al socio
+            Socio soc = RepoSocios.BuscarPorId(ci);
+            Actividad act = RepoHoras.BusarPorNombre(regAct.Actividad);
 
+
+            // Verifico que exista la act o el user
+            if (soc == null || act == null) return false;
+
+            if (VerifyCupos(act) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora))
+            {
+                RegistroActividad nvoRegistro = new RegistroActividad {
+                Nombre = regAct.Actividad,
+                Fecha = DateTime.Now,
+                Socio = ci,
+            };
+                successReg = RepoReg.Alta(nvoRegistro);
+            }
+       
+            
+            return successReg;
         }
 
 
-
-        public IEnumerable<DtoHorario> GetTodosLosHorarios()
+        // Encargada de traer todos los horarios disponibles que aun no comenzaron
+        // Seguramente mas adelante refactorize esto
+        public IEnumerable<DtoHorario> GetHorariosDisponibles()
         {
-            IEnumerable<Horario> Horas = RegHoras.BuscarHorarios("Lunes", 10);
+            string diaActual = GetDiaActual(); //"lunes";
+            int horaActual = GetHoraActual(); //19;S
+
+            // Llamo a los repos y la Query de buscar todos los horarios en base a hora y dia
+            // Guardo la respuesta en una lista tipo Horario 
+            IEnumerable<Horario> Horas = RepoHoras.BuscarHorarios(diaActual, horaActual);
+
             if (Horas == null)
             {
                 return null;
             }
             else
             {
-                IEnumerable<DtoHorario> list = ConvertirListaHorario(Horas);
+                // Creo una lista de tipo DTOHorario
+                // DTOHorario seria la estrcutura de como va devolver la info el servicio
+                // LLamo a la funcion Lista horario
+                IEnumerable<DtoHorario> list = ObtenerListaHorarios(Horas);
                 return list;
-           
             }
 
         }
 
-        private IEnumerable<DtoHorario> ConvertirListaHorario(IEnumerable<Horario> lasHrs)
+
+
+
+        // Funcion que devuelve el DTOHorarios armado para mostar, pasandole por parametro un array de horarios
+        // Horas es la lista ya filtrada por la Query 
+        private IEnumerable<DtoHorario> ObtenerListaHorarios(IEnumerable<Horario> Horas)
         {
-            List<DtoHorario> lista = new List<DtoHorario>();
-            foreach (Horario hrs in lasHrs)
-            {
-                DtoHorario unDtoHora = new DtoHorario();
-                unDtoHora.ConvertirDesdeHorario(hrs);
-                lista.Add(unDtoHora);
-            }
-            return lista;
-        }
-    }
+            // Si la query no trajo nada, devuelvo null
+            if (Horas == null) return null;
 
+            // Creo una lista vacia de DTOHorario, donde voy a estrucuturar la data traida en 'Horas'
+            // Recorro la data de Horas
+            List<DtoHorario> horariosAux = new List<DtoHorario>();
+            foreach (Horario h in Horas)
+            {
+                // Creo una variable tipo actividad para traerme una actividad por nombre (Query)
+                // Luego solo me quedo con el ID para setearlo en DTOhorario a devolver en el servicio
+                Actividad act = RepoHoras.BusarPorNombre(h.Actividad);
+                int idAct = act.Id;
+
+                horariosAux.Add(new DtoHorario
+                {
+                    Actividad = h.Actividad,
+                    Hora = h.Hora,
+                    Id = idAct,
+                });
+            }
+            return horariosAux;
+        }
+
+
+        #region funcionesGenericas
+        // Funcion que devuelve dia actual en string y sin tilde ej: miercoles.
+        private string GetDiaActual()
+        {
+            // Tomo la fecha actual, la paso astring y me traifo solo el dia en Espanol
+            string dia = DateTime.Now.ToString("dddd", new CultureInfo("es-ES"));
+
+            // Le saco los tildes
+            dia = Regex.Replace(dia.Normalize(NormalizationForm.FormD), @"[^a-zA-z0-9 ]+", "");
+            return dia;
+        }
+
+        private int GetHoraActual()
+        {
+            // Tomo solo la hora sin minutos en formato string
+            // HH en formato 24hrs | hh formato 12hrs AM/PM
+            string horaTxt = DateTime.Now.ToString("HH", new CultureInfo("es-ES"));
+
+            // Parse la hora en string a INT
+            // Le sumo ya que las clases comienza en punto y si la hora actual es 00:58
+            // Me trae 0 pero tengo que listar las que no comenzaron, por eso el +1
+            int hora = Int32.Parse(horaTxt) + 1;
+
+            return hora;
+        }
+
+        // Verifica los cupos disponibles para una actividad
+        private bool VerifyCupos(Actividad act)
+        {
+            // Por defecto seteo el resultado en false
+            bool success = false;
+      
+
+            // Si la actividad es null ya corto como false
+            if (act == null) return false;
+            
+            // Tomo la fecha de hoy como string
+            String fecha = DateTime.Now.ToString("yyyy-MM-dd");
+            int cuposAct = act.CuposDisponibles;
+            int cuposDis = RepoReg.CuposDisponibles(act.Nombre, fecha);
+            
+            // Verifico si al consulta fallo, devuelvo de una false
+            if (cuposDis!= -1)
+            {
+                // Hago la resta para verificar si hay cupos disponibles
+                // Cupos de la actividad - cuantos hay anotados hasta el momento
+                cuposDis = cuposAct - cuposDis;
+                if (cuposDis <= 0)
+                {
+                    success = false;
+                }
+                else
+                {
+                    success = true;
+                }
+            }
+            return (success);
+        }
+
+        private bool VerifyEdad(Socio soc, Actividad act)
+        {
+            bool success = false;
+            DateTime nacimiento = soc.FechaNac; //Fecha de nacimiento
+            int edad = DateTime.Today.AddTicks(-nacimiento.Ticks).Year - 1;
+            int ActEdadMin = act.EdadMin;
+            int ActEdadMax = act.EdadMax;
+
+            if (edad >= ActEdadMin && edad <= ActEdadMax)
+            {
+                success = true;
+     
+            }
+
+            return success;
+        }
+
+        private bool VerifyHorario(int hora)
+        {
+            bool success = false;
+            string horaActual = DateTime.Now.ToString("HH:mm");
+            string horaDeAct = hora.ToString() + ":00";
+
+            if (horaActual == horaDeAct)
+            {
+                success = true;
+            }
+
+            return success;
+        }
+
+
+
+        #endregion
+    }
 
 }
 

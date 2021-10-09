@@ -10,8 +10,9 @@ namespace Repositorio
 {
     class Conexion
     {
+        // HAY QUE CAMBIAR ESTA VARIABLE CON LOS DATOS DE NUESTRA BD
         private readonly string cadenaConexion =
-            @"Data Source=FEDE-PC; Initial Catalog=obligatorioP3; Integrated Security=SSPI;";
+            @"Data Source=MEERKAT-PC; Initial Catalog=obligatorioP3; Integrated Security=SSPI;";
         public SqlConnection CrearConexion()
         {
             return new SqlConnection(cadenaConexion);

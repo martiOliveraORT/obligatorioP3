@@ -1,0 +1,36 @@
+﻿@using Dominio
+@model Socio
+
+@{
+    ViewBag.Title = "BajarSocio";
+}
+
+<h2>BajarSocio</h2>
+
+<form action="/socio/BajarSocio" method="post">
+    <label for="Cedula">Cedula:</label>
+    <input type="number" required name="Cedula" placeholder="Ingrese cedula" /> <br />
+    <button type="submit">Eliminar socio</button>
+</form>
+
+@if (Model != null)
+{
+    <p>Cedula: @Model.Cedula</p>
+    <p>Nombre: @Model.Nombre</p>
+    <p>Fecha Nacimiento: @Model.FechaNac</p>
+    <p>Fecha Ingreso: @Model.FechaIngreso</p>
+    string estado;
+    if (Model.Estado)
+    {
+        estado = "Activo";
+    }
+    else
+    {
+        estado = "Inactivo";
+    }
+    <p>Estado: @estado</p>
+}
+
+
+<p>@ViewBag.mensaje</p>
+

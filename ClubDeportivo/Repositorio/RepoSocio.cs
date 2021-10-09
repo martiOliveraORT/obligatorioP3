@@ -29,6 +29,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@fechaIng", obj.FechaIngreso);
+            cmd.Connection = cn;
             if (obj.Estado)
             {
                 estado = 1;
@@ -37,8 +38,7 @@ namespace Repositorio
             {
                 estado = 0;
             }
-            cmd.Parameters.AddWithValue("@fechaIng", estado);
-            cmd.Connection = cn;
+            cmd.Parameters.AddWithValue("@estado", estado);
 
             try
             {
@@ -81,7 +81,6 @@ namespace Repositorio
 
             cmd.Parameters.AddWithValue("@ced", id);
             cmd.Connection = cn;
-
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -125,7 +124,6 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@ced", obj.Cedula);
             cmd.Connection = cn;
-
             try
             {
                 manejadorConexion.AbrirConexion(cn);

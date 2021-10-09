@@ -41,18 +41,26 @@ namespace Fachada
             return respuesta;
         }
 
-        public string EliminarSocio(int cedula)
+        public (Socio, string) EliminarSocio(int cedula)
         {
-            string respuesta;
+            Socio respuesta;
+            string mensaje;
             bool resCedula = ValidarCedula(cedula);
             Socio resRegistro = ValidarSocio(cedula);
             if (!resCedula)
             {
-                respuesta = "Formato incorrecto de cedula";
+                respuesta = null;
+                mensaje = "Cedula incorrecta";
             }
             else if (resRegistro == null)
             {
-                respuesta = "No existe este socio en la BD";
+                respuesta = null;
+                mensaje = "Ese socio no existe";
+            }
+            else if (!resRegistro.Estado)
+            {
+                respuesta = null;
+                mensaje = "Socio ya dado de baja";
             }
             else
             {
@@ -60,14 +68,16 @@ namespace Fachada
                 bool retornoBaja = repo.Baja(cedula);
                 if (!retornoBaja)
                 {
-                    respuesta = "Error al bajar en BD";
+                    respuesta = null;
+                    mensaje = "Error en BD";
                 }
                 else
                 {
-                    respuesta = "Se borro correctamente el socio";
+                    respuesta = ValidarSocio(cedula);
+                    mensaje = "Se ha dado de baja correctamente";
                 }
             }
-            return respuesta;           
+            return (respuesta, mensaje);           
 
         }
 
@@ -110,6 +120,31 @@ namespace Fachada
             }
 
             return respuesta;
+        }
+
+        public (Socio, string) BuscarSocio(int cedula)
+        {
+            Socio respuesta;
+            string mensaje;
+            bool resCedula = ValidarCedula(cedula);
+            Socio resRegistro = ValidarSocio(cedula);
+            if (!resCedula)
+            {
+                respuesta = null;
+                mensaje = "Cedula incorrecta";
+            }
+            else if (resRegistro == null)
+            {
+                respuesta = null;
+                mensaje = "Ese socio no existe";
+            }
+            else
+            {
+                respuesta = resRegistro;
+                mensaje = null;
+            }
+
+            return (respuesta, mensaje);
         }
 
         public static bool ValidarCedula(int ciIngresada)

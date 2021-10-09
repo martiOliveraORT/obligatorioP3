@@ -13,28 +13,32 @@ namespace Repositorio
     {
         public bool Alta(RegistroActividad obj)
         {
-            //Crear conexion
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
-            bool resultado = false;
+            bool resultado;
 
-            //Preparar consulta
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"INSERT INTO RegistrosActividad (socio, actividad, fecha) VALUES (@ced, @nomAct, @fecha)"
+                CommandText = @"INSERT INTO registroActividad (socio, actividad, fecha) VALUES (@ced, @nomAct, @fecha)"
             };
+            // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@ced", obj.Socio);
             cmd.Parameters.AddWithValue("@nomAct", obj.Nombre);
             cmd.Parameters.AddWithValue("@fecha", obj.Fecha);
-            cmd.Connection = cn;
+            cmd.Connection = cn;// SETEAR!!
 
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
-                int afectadas = cmd.ExecuteNonQuery();
+                int rows = cmd.ExecuteNonQuery();
 
-                if (afectadas == 1)
+                if (rows == 1)
                 {
                     resultado = true;
                 }
@@ -51,6 +55,7 @@ namespace Repositorio
             }
             finally
             {
+                // Finalmente si o si cerramos la conexion
                 manejadorConexion.CerrarConexion(cn);
             }
         }
@@ -67,27 +72,30 @@ namespace Repositorio
 
         public List<RegistroActividad> TraerTodo()
         {
-            //Crear conexion
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
             List<RegistroActividad> ingresos = new List<RegistroActividad>();
 
-            //Preparar consulta
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                //LOS TRAIGOS DE MANERA DESC PARA QUE LA ULTIMA FECHA VENGA PRIMERA
+                // Los traemos asi para tener la mas reciente arriba
                 CommandText = @"SELECT * FROM RegistrosActividad ORDER BY fecha DESC"
             };
-            cmd.Connection = cn;
+            cmd.Connection = cn;// SETEAR!!
 
+            // Intentamos ejecutar la Query (Try)
+            // Leemos el reusltado de la query y guardamos los datos en sus respectivas posiciones
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
                 SqlDataReader filas = cmd.ExecuteReader();
                 while (filas.Read())
                 {
-                    //GUARDO LA INFORMACION DE LA TABLA 
+                    
                     ingresos.Add(new RegistroActividad
                     {
                         Socio = (int)filas["socio"],
@@ -115,24 +123,28 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        //  FUNCIONALIDAD QUE SUSPLANTARIA EL BUSCAR POR ID, PRECISAMOS LA COMBINACION
-        public RegistroActividad BusquedaEspecifica(int socio, String act, DateTime fecha)
+        //  Funcionalidad que susplanta al BuscarPorId
+        public RegistroActividad BusquedaEspecifica(int socio, string act, string fecha)
         {
-            //Crear conexion
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
             RegistroActividad registro = null;
 
-            //Preparar consulta
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"SELECT * FROM RegistroActividad WHERE socio = @socio AND actividad = @act AND fecha = @fecha"
             };
+            // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@socio", socio);
             cmd.Parameters.AddWithValue("@act", act);
             cmd.Parameters.AddWithValue("@fecha", fecha);
-            cmd.Connection = cn;
+            cmd.Connection = cn;// Setear
 
+            // Intentamos ejecutar la Query (Try)
+            // Leemos el reusltado de la query y guardamos los datos en sus respectivas posiciones
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -146,6 +158,51 @@ namespace Repositorio
                         Nombre = (string)reader["actividad"],
                         Fecha = (DateTime)reader["fecha"]
                     };
+                }
+                return registro;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return registro;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
+
+        //Funcion que devuelve cuantos cupos disponibles hay en una actividad
+        public int CuposDisponibles(String act, string fecha)
+        {
+            // Iniciamos la conexion con la BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+            // Seteo -1 como numero error si no se pudo consultar
+            int registro = -1;
+
+            // Seteamos la Query para la BD
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"SELECT COUNT(actividad) AS cantidad FROM registroActividad WHERE actividad = @act AND fecha = @fecha;"
+
+            };
+            // Definimos que varibales corresponde a que dato de la query
+            cmd.Parameters.AddWithValue("@act", act);
+            cmd.Parameters.AddWithValue("@fecha", fecha);
+            cmd.Connection = cn;// Setear
+
+            // Intentamos ejecutar la Query (Try)
+            // Leemos el reusltado de la query y guardamos los datos en sus respectivas posiciones
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                if (reader.Read())
+                {
+                    registro = (int)reader["cantidad"];
                 }
                 return registro;
             }

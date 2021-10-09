@@ -13,6 +13,6 @@ namespace Dominio
         public DateTime Fecha { get; set; }
         public Socio Socio { get; set; }
         public DateTime Vencimiento { get; set; }
-        public string Tipo { get; set; }
+        public abstract string Tipo();
     }
 }

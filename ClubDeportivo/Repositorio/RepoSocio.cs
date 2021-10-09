@@ -202,8 +202,6 @@ namespace Repositorio
             {
                 manejadorConexion.CerrarConexion(cn);
             }
-
-
         }
 
         public Socio BuscarPorId(int id)
@@ -220,30 +218,21 @@ namespace Repositorio
                 CommandText = @"SELECT * FROM Socios WHERE cedula = @ced"
             };
             cmd.Parameters.AddWithValue("@ced", id);
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
                 SqlDataReader reader = cmd.ExecuteReader();
-                bool estado = false;
                 if (reader.Read())
                 {
                     //Pregunto si el atributo de la base de dato esta en true/false (0 / 1)
-
-                    if((int)reader["estado"] == 0)
-                    {
-                        estado = true;
-                    }else if((int)reader["estado"] == 1)
-
-                    {
-                        estado = false;
-                    }
                     socio = new Socio
                     {
                         Cedula = (int)reader["cedula"],
                         Nombre = (string)reader["nombre"],
                         FechaNac = (DateTime)reader["fechaNac"],
                         FechaIngreso = (DateTime)reader["fechaIng"],
-                        Estado = estado
+                        Estado = (Boolean)reader["estado"],
                     };
                 }
                 return socio;

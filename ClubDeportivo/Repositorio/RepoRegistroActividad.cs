@@ -22,7 +22,7 @@ namespace Repositorio
             // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"INSERT INTO RegistrosActividad (socio, actividad, fecha) VALUES (@ced, @nomAct, @fecha)"
+                CommandText = @"INSERT INTO registroActividad (socio, actividad, fecha) VALUES (@ced, @nomAct, @fecha)"
             };
             // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@ced", obj.Socio);
@@ -202,7 +202,7 @@ namespace Repositorio
 
                 if (reader.Read())
                 {
-                    registro = (int)reader[0];
+                    registro = (int)reader["cantidad"];
                 }
                 return registro;
             }

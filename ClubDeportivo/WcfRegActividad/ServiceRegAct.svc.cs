@@ -32,7 +32,7 @@ namespace WcfRegActividad
             // Verifico que exista la act o el user
             if (soc == null || act == null) return false;
 
-            if (VerifyCupos(act) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora))
+            if (VerifyCupos(act) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad))
             {
                 RegistroActividad nvoRegistro = new RegistroActividad {
                 Nombre = regAct.Actividad,
@@ -51,8 +51,8 @@ namespace WcfRegActividad
         // Seguramente mas adelante refactorize esto
         public IEnumerable<DtoHorario> GetHorariosDisponibles()
         {
-            string diaActual = GetDiaActual(); //"lunes";
-            int horaActual = GetHoraActual(); //19;S
+            string diaActual = "lunes"; //GetDiaActual(); 
+            int horaActual = 19;//GetHoraActual();  
 
             // Llamo a los repos y la Query de buscar todos los horarios en base a hora y dia
             // Guardo la respuesta en una lista tipo Horario 
@@ -116,6 +116,7 @@ namespace WcfRegActividad
             return dia;
         }
 
+        //Funcion que devuelve la hora actual +1
         private int GetHoraActual()
         {
             // Tomo solo la hora sin minutos en formato string
@@ -143,7 +144,8 @@ namespace WcfRegActividad
             // Tomo la fecha de hoy como string
             String fecha = DateTime.Now.ToString("yyyy-MM-dd");
             int cuposAct = act.CuposDisponibles;
-            int cuposDis = RepoReg.CuposDisponibles(act.Nombre, fecha);
+            string nombreAct = act.Nombre;
+            int cuposDis = RepoReg.CuposDisponibles(nombreAct, fecha);
             
             // Verifico si al consulta fallo, devuelvo de una false
             if (cuposDis!= -1)
@@ -180,13 +182,12 @@ namespace WcfRegActividad
             return success;
         }
 
-        private bool VerifyHorario(int hora)
+        private bool VerifyHorario(int horaComienzoAct)
         {
             bool success = false;
-            string horaActual = DateTime.Now.ToString("HH:mm");
-            string horaDeAct = hora.ToString() + ":00";
-
-            if (horaActual == horaDeAct)
+            int horaActual = GetHoraActual() - 1;
+            
+            if (horaActual < horaComienzoAct)
             {
                 success = true;
             }
@@ -195,7 +196,17 @@ namespace WcfRegActividad
         }
 
 
+        private bool VerifyIngresoPrevio(int ci, string nombreAct )
+        {
+            bool success = false;
+            String fecha = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("es-ES"));
+            RegistroActividad ingresoEnElDia = RepoReg.BusquedaEspecifica(ci, nombreAct, fecha);
 
+            if (ingresoEnElDia == null) success = true;
+
+            return success;
+
+        }
         #endregion
     }
 

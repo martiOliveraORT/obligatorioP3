@@ -94,6 +94,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\MensualidadController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\SocioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -105,6 +107,10 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Usuario\AltaUser.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
+    <Content Include="Views\Mensualidad\AltaPaseLibre.cshtml" />
+    <Content Include="Views\Mensualidad\AltaCuponera.cshtml" />
     <Content Include="Views\Socio\AltaSocio.cshtml" />
     <Content Include="Views\Socio\BajarSocio.cshtml" />
     <None Include="Web.Debug.config">

@@ -200,8 +200,6 @@ namespace Repositorio
             {
                 manejadorConexion.CerrarConexion(cn);
             }
-
-
         }
 
         public Socio BuscarPorId(int id)

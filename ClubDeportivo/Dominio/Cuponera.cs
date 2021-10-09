@@ -10,5 +10,10 @@ namespace Dominio
     {
         public int IngresosDisponibles { get; set; }
         public decimal Descuento { get; set; }
+
+        public override string Tipo()
+        {
+            return "c";
+        }
     }
 }

@@ -1,0 +1,19 @@
+﻿@using Dominio;
+
+
+@{
+    ViewBag.Title = "AltaPaseLibre";
+}
+
+<h2>AltaPaseLibre</h2>
+
+<form action="/mensualidad/AltaPaseLibre" method="post">
+    <label for="ci">Documento de identidad: </label>
+    <input type="number" required name="ci" placeholder="Ingrese documento de identidad" /> <br />
+    <button type="submit">Registrar Pase libre</button>
+</form>
+
+@if (ViewBag.msj != null) 
+{
+    <p>@ViewBag.msj</p>
+}

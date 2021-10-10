@@ -219,5 +219,55 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
+        public List<RegistroActividad> ingresoSocioPorFecha(int ci, DateTime fecha)
+        {
+            // Iniciamos la conexion con la BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+
+            List<RegistroActividad> ingresos = new List<RegistroActividad>();
+
+            // Seteamos la Query para la BD
+            SqlCommand cmd = new SqlCommand
+            {
+                // Los traemos asi para tener la mas reciente arriba
+                CommandText = @"SELECT * FROM registroActividad Where socio = @socio AND fecha = @fecha"
+            };
+            cmd.Parameters.AddWithValue("@socio", ci);
+            cmd.Parameters.AddWithValue("@fecha", fecha);
+            cmd.Connection = cn;// SETEAR!!
+
+            // Intentamos ejecutar la Query (Try)
+            // Leemos el reusltado de la query y guardamos los datos en sus respectivas posiciones
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                SqlDataReader filas = cmd.ExecuteReader();
+                while (filas.Read())
+                {
+
+                    ingresos.Add(new RegistroActividad
+                    {
+                        Socio = (int)filas["socio"],
+                        Nombre = (string)filas["Actividad"],
+                        Fecha = (DateTime)filas["fecha"],
+                        hora = (int)filas["hora"],
+                    });
+                }
+                return ingresos;
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return ingresos = null;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
     }
 }

@@ -96,5 +96,20 @@ namespace ClubDeportivo.Controllers
             return View();
         }
 
+        public ActionResult ListarActividades(int cedula, int mes)
+        {
+            List<RegistroActividad> lista = fSocio.BuscarActividadesPorSocio(cedula, mes);
+            if(lista == null)
+            {
+                ViewBag.m = "Error en la BD";
+            }
+            else
+            {
+                ViewBag.res = lista;
+                ViewBag.cant = lista.Count;
+            }
+            return View();
+        }
+
     }
 }

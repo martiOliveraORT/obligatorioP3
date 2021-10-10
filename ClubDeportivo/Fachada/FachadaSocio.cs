@@ -169,6 +169,17 @@ namespace Fachada
             }
             return (socios, mensaje);
         }
+
+        public List<RegistroActividad> BuscarActividadesPorSocio(int cedula, int mes)
+        {
+            DateTime hoy = DateTime.Now;
+            int dia = hoy.Day;
+            int year = hoy.Year;
+            DateTime fecha = new DateTime(year, mes, dia);
+            RepoRegistroActividad repo = new RepoRegistroActividad();
+            List<RegistroActividad> lista = repo.ingresoSocioPorFecha(cedula, fecha);
+            return lista;
+        }
         #endregion
         #region VALIDACIONES
         public static bool ValidarCedula(int ciIngresada)

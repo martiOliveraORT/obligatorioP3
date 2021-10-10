@@ -120,6 +120,16 @@ namespace Fachada
             return (mens, msj);
         }
 
+        public bool RestarCupoCuponera(int cedula)
+        {
+            bool res;
+
+            RepoMensualidad repo = new RepoMensualidad();
+            res = repo.RestarCupo(cedula);
+
+            return res;
+        }
+
         public static decimal CalcularCostoPL(decimal porcDescuento, decimal valorCuota, int antig, DateTime fchIng)
         {
             decimal costo;         

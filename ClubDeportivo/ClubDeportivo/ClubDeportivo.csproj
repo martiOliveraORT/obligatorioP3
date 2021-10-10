@@ -95,6 +95,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\MensualidadController.cs" />
+    <Compile Include="Controllers\RegistroActividadController.cs" />
     <Compile Include="Controllers\SocioController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
@@ -116,6 +117,8 @@
     <Content Include="Views\Socio\BuscarSocio.cshtml" />
     <Content Include="Views\Socio\ListarSocios.cshtml" />
     <Content Include="Views\Socio\Detalle.cshtml" />
+    <Content Include="Views\RegistroActividad\ListaHorariosDisponibles.cshtml" />
+    <Content Include="Views\RegistroActividad\IngresarActividad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -139,6 +142,10 @@
     <ProjectReference Include="..\Repositorio\Repositorio.csproj">
       <Project>{e4d1944e-1d1a-4112-9633-f2aa376d90e5}</Project>
       <Name>Repositorio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WcfRegActividad\WcfRegActividad.csproj">
+      <Project>{9c7b8c5e-6cde-4045-b1e3-7e80ec39e3a5}</Project>
+      <Name>WcfRegActividad</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

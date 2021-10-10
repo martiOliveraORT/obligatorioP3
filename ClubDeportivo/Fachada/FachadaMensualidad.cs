@@ -101,6 +101,35 @@ namespace Fachada
             return (ok, msj);
         }
 
+        public (Mensualidad, string) BuscarMesualidad(int cedula)
+        {
+            string msj;
+            Mensualidad mens;
+
+            RepoMensualidad repo = new RepoMensualidad();
+            mens = repo.BuscarPorId(cedula);
+
+            if(mens == null)
+            {
+                msj = "Error al buscar en BD";
+            }
+            else
+            {
+                msj = "OK";
+            }
+            return (mens, msj);
+        }
+
+        public bool RestarCupoCuponera(int cedula)
+        {
+            bool res;
+
+            RepoMensualidad repo = new RepoMensualidad();
+            res = repo.RestarCupo(cedula);
+
+            return res;
+        }
+
         public static decimal CalcularCostoPL(decimal porcDescuento, decimal valorCuota, int antig, DateTime fchIng)
         {
             decimal costo;         

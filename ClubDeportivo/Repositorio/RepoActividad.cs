@@ -292,7 +292,6 @@ namespace Repositorio
 
         // SECCION CORRESPONDEA HORARIOS
         #region Horarios
-        // Devuelve todos los horario segun el nombre de actividad
         public List<Horario> BuscarHorarios(string dia, int hora)
         {
             // Iniciamos la conexion con la BD
@@ -304,7 +303,7 @@ namespace Repositorio
             // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"SELECT * FROM Horarios WHERE hora = @hora AND dia = @dia "
+                CommandText = @"SELECT * FROM Horarios WHERE hora >= @hora AND dia = @dia ORDER BY hora ASC"
             };
 
             // Setear el parametro CONNECTION con el valor del cn

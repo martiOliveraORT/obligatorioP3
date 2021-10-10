@@ -8,96 +8,47 @@ using Dominio;
 
 namespace WcfRegActividad
 {
-    // NOTA: puede usar el comando "Rename" del menú "Refactorizar" para cambiar el nombre de interfaz "IServiceRegAct" en el código y en el archivo de configuración a la vez.
     [ServiceContract]
     public interface IServiceRegAct
     {
+        // Operaciones principales del servicio
         [OperationContract]
-        IEnumerable<DtoHorario> GetTodosLosHorarios();
+        IEnumerable<DtoHorario> GetHorariosDisponibles();
         [OperationContract]
-        bool AltaRegistro(DtoRegistro nvoRegistro);
-
-
+        bool AltaRegistro(int ci, DtoHorario regAct);
     }
 
+
+    // Creo un DTO por cada tipo de obj que voy usar (RegistroActividad, Horario, Socio)
+    #region DTO
+    //REGISTROACTIVIDAD
     public class DtoRegistro
     {
+        // Seteo los atributos que voy a usar
         [DataMember]
         public int Socio { get; set; }
         [DataMember]
         public string Nombre { get; set; }
         [DataMember]
         public DateTime Fecha { get; set; }
-        [DataMember]
-        public string Data
-        {
-            get
-            {
-                return string.Format(
-                    "Socio: {0} Actividad: {1} Fecha: {2}", Socio, Nombre, Fecha);
-            }
-            set { } //QUEDA VACIO PARA QUE FUNCIONE EL SERVICIO
-        }
-
-        // CONVIERTE A UN OBJETO EN REGISTRO
-        internal RegistroActividad ConvertirARegistro()
-        {
-            return new RegistroActividad()
-            {
-                Socio = this.Socio,
-                Nombre = this.Nombre,
-                Fecha = this.Fecha,
-            };
-        }
-
-        // CONVIERTE A UN REGISTRO EN OBJETO PARA ESTA FUNCION
-
-        internal void ConvertirDesdeRegistro (RegistroActividad reg)
-        {
-            Socio = reg.Socio;
-            Nombre = reg.Nombre;
-            Fecha = reg.Fecha;
-        }
+      
     };
 
-
+    //HORARIO
     public class DtoHorario
     {
+     
         [DataMember]
         public string Actividad { get; set;}
         [DataMember]
-        public string Dia { get; set; }
-        [DataMember]
         public int Hora{ get; set; }
         [DataMember]
-        public string Data
-        {
-            get
-            {
-                return string.Format(
-                    "Actividad: {0} Dia: {1} Hora: {2}", Actividad, Dia, Hora);
-            }
-            set { } //QUEDA VACIO PARA QUE FUNCIONE EL SERVICIO
-        }
+        public int Id { get; set; }
 
-        // CONVIERTE A UN OBJETO EN REGISTRO
-        internal Horario ConvertirAHorario()
-        {
-            return new Horario()
-            {
-                Actividad = this.Actividad,
-                Dia = this.Dia,
-                Hora = this.Hora,
-            };
-        }
-
-        // CONVIERTE A UN REGISTRO EN OBJETO PARA ESTA FUNCION
-
-        internal void ConvertirDesdeHorario(Horario reg)
-        {
-            Actividad = reg.Actividad;
-            Dia = reg.Dia;
-            Hora = reg.Hora;
-        }
     };
+
+
+    #endregion
 }
+
+

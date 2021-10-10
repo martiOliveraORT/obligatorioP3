@@ -9,5 +9,10 @@ namespace Dominio
     public class PaseLibre : Mensualidad
     {
         public decimal Descuento { get; set; }
+
+        public override string Tipo()
+        {
+            return "l";
+        }
     }
 }

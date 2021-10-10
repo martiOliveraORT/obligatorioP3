@@ -216,7 +216,7 @@ namespace Fachada
             return respuesta;
         }
 
-        public static Socio ValidarSocio(int cedula)
+        public Socio ValidarSocio(int cedula)
         {
             Socio respuesta;
             RepoSocio repo = new RepoSocio();

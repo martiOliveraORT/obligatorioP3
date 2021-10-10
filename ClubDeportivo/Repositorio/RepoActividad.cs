@@ -14,25 +14,26 @@ namespace Repositorio
         public bool Alta(Actividad obj)
         {
             bool success = false;
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"INSERT INTO Actividades (nombre, edadMin, edadMax, duracion, cupos) VALUES (@nom, @eMin, @eMax, @dur, @cupos)"
             };
-            //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
+            // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@eMin", obj.EdadMin);
             cmd.Parameters.AddWithValue("@eMax", obj.EdadMax);
             cmd.Parameters.AddWithValue("@dur", obj.Duracion);
             cmd.Parameters.AddWithValue("@cupos", obj.CuposDisponibles);
+            cmd.Connection = cn;// SETEAR!!
 
-            // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
-            // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
-            // SI FALLA TRAEMOS Y MOSTRAMOS EL ERROR
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -49,32 +50,34 @@ namespace Repositorio
                 Console.WriteLine(ex.Message);
                 return false;
             }
+            // Finalmente si o si cerramos la conexion
             finally
             {
-                // CERRAMOS LA CONEXION
+                
                 manejadorConexion.CerrarConexion(cn);
             }
         }
 
-
         public bool Baja(int id)
         {
             bool success = false;
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"DELETE FROM Actividades WHERE id = @id"
             };
-            //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
+            // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@id", id);
-             
-            // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
-            // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
-            // SI FALLA TRAEMOS Y MOSTRAMOS EL ERROR
+            cmd.Connection = cn; // SETEAR!!
+
+
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -93,7 +96,7 @@ namespace Repositorio
             }
             finally
             {
-                // CERRAMOS LA CONEXION
+                // Finalmente si o si cerramos la conexion
                 manejadorConexion.CerrarConexion(cn);
             }
         }
@@ -101,25 +104,26 @@ namespace Repositorio
         public bool Modificacion(Actividad obj)
         {
             bool success = false;
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"UPDATE Actividades SET nombre = @nom,edadMin = @eMin, edadMax = @eMax, duracion = @dur, cupos = @cupos WHERE id = @id"
             };
-            //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
+            //Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@eMin", obj.EdadMin);
             cmd.Parameters.AddWithValue("@eMax", obj.EdadMax);
             cmd.Parameters.AddWithValue("@dur", obj.Duracion);
             cmd.Parameters.AddWithValue("@cupos", obj.CuposDisponibles);
+            cmd.Connection = cn;
 
-            // INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
-            // SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETURNAMOS TRUE
-            // SI FALLA TRAEMOS Y MOSTRAMOS EL ERROR
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -138,32 +142,33 @@ namespace Repositorio
             }
             finally
             {
-                // CERRAMOS LA CONEXION
+                // Finalmente si o si cerramos la conexion
                 manejadorConexion.CerrarConexion(cn);
             }
         }
 
         public List<Actividad> TraerTodo()
         {
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
             List<Actividad> acts = new List<Actividad>();
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                
                 CommandText = @"SELECT * FROM Actividades "
             };
+            cmd.Connection = cn;
             try
             {
                 manejadorConexion.AbrirConexion(cn);
                 SqlDataReader filas = cmd.ExecuteReader();
                 while (filas.Read())
                 {
-                    //GUARDO LA INFORMACION DE LA TABLA 
+                    // Guardo la info de la tabla que necesito tener
                     acts.Add(new Actividad
                     {
                         Id = (int)filas["id"],
@@ -235,23 +240,25 @@ namespace Repositorio
 
         public Actividad BusarPorNombre(string n)
         {
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
             // Paso el parametro a MIN para mantener el criterio de busqeda siempre en MIN
-            n = n.ToLower();
             Actividad act = null;
 
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"SELECT * FROM Actividades WHERE nombre = @act "
             };
+            //Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@act", n);
+            cmd.Connection = cn;// SETEAR!!
 
-
-
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -284,28 +291,31 @@ namespace Repositorio
 
 
         // SECCION CORRESPONDEA HORARIOS
+        #region Horarios
         // Devuelve todos los horario segun el nombre de actividad
         public List<Horario> BuscarHorarios(string dia, int hora)
         {
-            //INICIO LA CONEXION CON LA BD
+            // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
             List<Horario> horas = new List<Horario>();
 
 
-            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
                 CommandText = @"SELECT * FROM Horarios WHERE hora = @hora AND dia = @dia "
             };
 
+            // Setear el parametro CONNECTION con el valor del cn
+            // Esto es IMPORTANTE!!!! si no, no se conecta
             cmd.Parameters.AddWithValue("@dia", dia);
             cmd.Parameters.AddWithValue("@hora", hora);
-            // SETEAMOS EL PARAMETO CONNECTION CON EL valor del cn
-            // Esto es IMPORTANTE!!!! si no, no se conecta
-            cmd.Connection = cn;
+            cmd.Connection = cn; // SETEAR !!!
 
-
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
 
             try
             {
@@ -313,7 +323,7 @@ namespace Repositorio
                     SqlDataReader filas = cmd.ExecuteReader();
                     while (filas.Read())
                     {
-                        // SOLO ME GUARDO DIA Y HORA
+                        
                         horas.Add(new Horario
                         {
                             Actividad = (string)filas["actividad"],
@@ -337,7 +347,7 @@ namespace Repositorio
             }
         }
 
+        #endregion
 
-       
     }
 }

@@ -118,6 +118,7 @@
     <Content Include="Views\Socio\ListarSocios.cshtml" />
     <Content Include="Views\Socio\Detalle.cshtml" />
     <Content Include="Views\RegistroActividad\ListaHorariosDisponibles.cshtml" />
+    <Content Include="Views\RegistroActividad\IngresarActividad.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

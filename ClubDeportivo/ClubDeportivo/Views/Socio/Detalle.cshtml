@@ -9,14 +9,29 @@
 
 @if (Model != null)
 {
+    string estado;
+    if (Model.Estado)
+    {
+        estado = "Activo";
+    }
+    else {
+        estado = "Inactivo";
+    }
     <p>Cedula: @Model.Cedula</p>
     <p>Nombre: @Model.Nombre</p>
     <p>Fecha Nacimiento: @Model.FechaNac</p>
     <p>Fecha Ingreso: @Model.FechaIngreso</p>
+    <p>Estado: @estado</p>
 }
 
+
 <p>@ViewBag.msj</p>
-@if (!ViewBag.tieneMensualidad)
+@if (!Model.Estado) {
+<a href="">Dar de alta</a>
+}
+else
+{
+if (!ViewBag.tieneMensualidad)
 {
     <a href="/mensualidad/AltaCuponera">Pagar Pase Libre</a>
     <a href="/mensualidad/AltaPaseLibre">Pagar Cuponera</a>
@@ -26,6 +41,5 @@ else
 {
     <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
     <!--Falta ver las los ingresos del mes por una fecha dada-->
-
-
+}
 }

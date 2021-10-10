@@ -275,5 +275,47 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
+        public bool RestarCupo(int id)
+        {
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+
+            bool respuesta = false;
+
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"UPDATE mensualidad SET ingresosDisp = ingresosDisp-1 WHERE vencimiento > GETDATE() and socio = @socio and tipo = 'c'"
+            };
+
+            cmd.Parameters.AddWithValue("@socio", id);
+            cmd.Connection = cn;
+
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                int afectadas = cmd.ExecuteNonQuery();
+
+                if (afectadas == 1)
+                {
+                    respuesta = true;
+                }
+                else
+                {
+                    respuesta = false;
+                }
+                return respuesta;
+
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return respuesta;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
     }
 }

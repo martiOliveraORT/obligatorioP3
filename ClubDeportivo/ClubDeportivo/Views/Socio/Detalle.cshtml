@@ -16,6 +16,16 @@
 }
 
 <p>@ViewBag.msj</p>
-<p>@ViewBag.mensualidad</p>
-<p>@ViewBag.ingresoAct</p>
-<p>@ViewBag.IngresosSocio</p>
+@if (!ViewBag.tieneMensualidad)
+{
+    <a href="/mensualidad/AltaCuponera">Pagar Pase Libre</a>
+    <a href="/mensualidad/AltaPaseLibre">Pagar Cuponera</a>
+    <!--Falta ver las los ingresos del mes por una fecha dada-->
+}
+else
+{
+    <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
+    <!--Falta ver las los ingresos del mes por una fecha dada-->
+
+
+}

@@ -11,6 +11,7 @@ namespace ClubDeportivo.Controllers
     public class SocioController : Controller
     {
         FachadaSocio fSocio = new FachadaSocio();
+        FachadaMensualidad fMensualidad = new FachadaMensualidad();
 
         [HttpGet]
         public ActionResult AltaSocio()
@@ -64,15 +65,25 @@ namespace ClubDeportivo.Controllers
         public ActionResult Detalle(int Cedula)
         {
             var (Socio, msj) = fSocio.BuscarSocio(Cedula);
-            //buscar mensualidad de socio
-            //si esta paga, navega a ingresar actividades y ver todos los ingresos que realizó en una fecha dada en el mes corriente
 
-            //si no esta paga, link al registro de pago para el socio y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+            //buscar mensualidad de socio
+            var (mens, msjMens) = fMensualidad.BuscarMesualidad(Cedula);
+
+            if (mens.Vencimiento > DateTime.Now)
+            {
+                //si esta paga, navega a ingresar actividades y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+                ViewBag.tieneMensualidad = true;
+
+            }
+            else
+            {
+                //si no esta paga, link al registro de pago para el socio y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+                ViewBag.tieneMensualidad = false;
+
+            }
 
             ViewBag.msj = msj;
-            ViewBag.mensualidad = true;
-            ViewBag.ingresoAct = true;
-            ViewBag.ingresosSocio = true;
+           
 
             return View(Socio);
         }

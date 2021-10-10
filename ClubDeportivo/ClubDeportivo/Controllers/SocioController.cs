@@ -55,6 +55,35 @@ namespace ClubDeportivo.Controllers
             return View(socio);
         }
 
+        public ActionResult BuscarSocio()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Detalle(int Cedula)
+        {
+            var (Socio, msj) = fSocio.BuscarSocio(Cedula);
+            //buscar mensualidad de socio
+            //si esta paga, navega a ingresar actividades y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+
+            //si no esta paga, link al registro de pago para el socio y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+
+            ViewBag.msj = msj;
+            ViewBag.mensualidad = true;
+            ViewBag.ingresoAct = true;
+            ViewBag.ingresosSocio = true;
+
+            return View(Socio);
+        }
+
+        public ActionResult ListarSocios()
+        {
+            var (socios, msj) = fSocio.ListarSocios();
+            ViewBag.msj = msj;
+            ViewBag.socios = socios;
+            return View();
+        }
 
     }
 }

@@ -11,7 +11,7 @@ namespace Repositorio
     class Conexion
     {
         private readonly string cadenaConexion =
-            @"Data Source=DESKTOP-6F5UKR9; Initial Catalog=obligatorioP3; Integrated Security=SSPI;";
+            @"Data Source=MEERKAT-PC\MSSQLSERVER01; Initial Catalog=obligatorioP3; Integrated Security=SSPI;";
         public SqlConnection CrearConexion()
         {
             return new SqlConnection(cadenaConexion);

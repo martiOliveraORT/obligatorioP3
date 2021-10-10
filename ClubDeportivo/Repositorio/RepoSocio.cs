@@ -168,25 +168,15 @@ namespace Repositorio
             {
                 manejadorConexion.AbrirConexion(cn);
                 SqlDataReader filas = cmd.ExecuteReader();
-                bool estado = false;
                 while (filas.Read())
                 {
-                    if ((int)filas["estado"] == 0)
-                    {
-                        estado = true;
-                    }
-                    else if ((int)filas["estado"] == 1)
-
-                    {
-                        estado = false;
-                    }
                     socios.Add(new Socio
                     {
                         Cedula = (int)filas["cedula"],
                         Nombre = (string)filas["nombre"],
                         FechaNac = (DateTime)filas["fechaNac"],
                         FechaIngreso = (DateTime)filas["fechaIng"],
-                        Estado = estado
+                        Estado = (Boolean)filas["estado"],
                     });
                 }
                 return socios;
@@ -194,7 +184,7 @@ namespace Repositorio
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return socios;
+                return socios = null;
             }
             finally
             {

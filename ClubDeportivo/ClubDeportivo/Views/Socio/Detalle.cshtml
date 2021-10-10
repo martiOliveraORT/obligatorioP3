@@ -1,0 +1,21 @@
+﻿@using Dominio
+@model Socio
+
+@{
+    ViewBag.Title = "Detalle";
+}
+
+<h2>Detalle</h2>
+
+@if (Model != null)
+{
+    <p>Cedula: @Model.Cedula</p>
+    <p>Nombre: @Model.Nombre</p>
+    <p>Fecha Nacimiento: @Model.FechaNac</p>
+    <p>Fecha Ingreso: @Model.FechaIngreso</p>
+}
+
+<p>@ViewBag.msj</p>
+<p>@ViewBag.mensualidad</p>
+<p>@ViewBag.ingresoAct</p>
+<p>@ViewBag.IngresosSocio</p>

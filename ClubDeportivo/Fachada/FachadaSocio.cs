@@ -10,6 +10,7 @@ namespace Fachada
 {
     public class FachadaSocio
     {
+        #region CRUD SOCIO
         public string AltaSocio(Socio newSocio)
         {
             string respuesta;
@@ -147,6 +148,29 @@ namespace Fachada
             return (respuesta, mensaje);
         }
 
+        public (List<Socio>, string) ListarSocios()
+        {
+            List<Socio> socios;
+            string mensaje;
+
+            RepoSocio repo = new RepoSocio();
+            socios = repo.TraerTodo();
+
+            if(socios.Count == 0)
+            {
+                mensaje = "No se encuentran socios";
+            }else if(socios == null)
+            {
+                mensaje = "Error al traer la lista";
+            }
+            else
+            {
+                mensaje = "OK";
+            }
+            return (socios, mensaje);
+        }
+        #endregion
+        #region VALIDACIONES
         public static bool ValidarCedula(int ciIngresada)
         {
             bool respuesta = false;
@@ -209,6 +233,6 @@ namespace Fachada
             }
             return respuesta;
         }
-
+        #endregion
     }
 }

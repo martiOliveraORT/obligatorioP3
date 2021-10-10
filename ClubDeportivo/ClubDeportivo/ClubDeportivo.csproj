@@ -107,6 +107,9 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Socio\AltaSocio.cshtml" />
     <Content Include="Views\Socio\BajarSocio.cshtml" />
+    <Content Include="Views\Socio\BuscarSocio.cshtml" />
+    <Content Include="Views\Socio\ListarSocios.cshtml" />
+    <Content Include="Views\Socio\Detalle.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

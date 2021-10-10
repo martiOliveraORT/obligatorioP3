@@ -22,12 +22,14 @@ namespace Repositorio
             // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"INSERT INTO registroActividad (socio, actividad, fecha) VALUES (@ced, @nomAct, @fecha)"
+                CommandText = @"INSERT INTO registroActividad (socio, actividad, fecha, hora) VALUES (@ced, @nomAct, @fecha, @hr)"
             };
             // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@ced", obj.Socio);
             cmd.Parameters.AddWithValue("@nomAct", obj.Nombre);
             cmd.Parameters.AddWithValue("@fecha", obj.Fecha);
+            cmd.Parameters.AddWithValue("@hr", obj.hora);
+
             cmd.Connection = cn;// SETEAR!!
 
             // Intentamos ejecutar la Query (Try)
@@ -173,7 +175,7 @@ namespace Repositorio
         }
 
         //Funcion que devuelve cuantos cupos disponibles hay en una actividad
-        public int CuposDisponibles(String act, string fecha)
+        public int CuposDisponibles(String act, string fecha, int hora)
         {
             // Iniciamos la conexion con la BD
             Conexion manejadorConexion = new Conexion();
@@ -184,12 +186,13 @@ namespace Repositorio
             // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"SELECT COUNT(actividad) AS cantidad FROM registroActividad WHERE actividad = @act AND fecha = @fecha;"
+                CommandText = @"SELECT COUNT(actividad) AS cantidad FROM registroActividad WHERE actividad = @act AND fecha = @fecha AND hora = @hr"
 
             };
             // Definimos que varibales corresponde a que dato de la query
             cmd.Parameters.AddWithValue("@act", act);
             cmd.Parameters.AddWithValue("@fecha", fecha);
+            cmd.Parameters.AddWithValue("@hr", hora);
             cmd.Connection = cn;// Setear
 
             // Intentamos ejecutar la Query (Try)

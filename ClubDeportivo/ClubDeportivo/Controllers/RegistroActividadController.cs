@@ -11,7 +11,7 @@ namespace ClubDeportivo.Controllers
     {
         // GET: RegistroActividad
         ServiceRegAct service = new ServiceRegAct();
-       
+   
         public ActionResult ListaHorariosDisponibles(int cedula)
         {
             IEnumerable<DtoHorario> horarios = service.GetHorariosDisponibles();
@@ -20,20 +20,20 @@ namespace ClubDeportivo.Controllers
             return View(cedula);
         }
 
-        public ActionResult IngresarActividad(int? ci)
+        public ActionResult IngresarActividad()
         {
-            int cedula = 0;
-            //if (ci != null)
-            //{
-            //    cedula = ci ?? default(int);
-            //}
+            //int cedula = 0;
+            return View();
+        }
 
-            
+        [HttpPost]
+        public ActionResult IngresarActividad(int cedula,string actividad, int hora, int id)
+        {       
             DtoHorario horario = new DtoHorario
             {
-                Actividad = "crossfit",
-                Hora = 19,
-                Id = 10,
+                Actividad = actividad,
+                Hora = hora,
+                Id = id,
             };
             bool respuesta = service.AltaRegistro(cedula, horario);
             ViewBag.res = respuesta;

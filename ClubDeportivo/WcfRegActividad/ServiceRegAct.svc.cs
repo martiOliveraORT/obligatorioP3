@@ -32,12 +32,13 @@ namespace WcfRegActividad
             // Verifico que exista la act o el user
             if (soc == null || act == null) return false;
 
-            if (VerifyCupos(act) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad))
+            if (VerifyCupos(act,regAct.Hora) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad))
             {
                 RegistroActividad nvoRegistro = new RegistroActividad {
-                Nombre = regAct.Actividad,
-                Fecha = DateTime.Now,
-                Socio = ci,
+                    Nombre = regAct.Actividad,
+                    Fecha = DateTime.Now,
+                    Socio = ci,
+                    hora = GetHoraActual() - 1 
             };
                 successReg = RepoReg.Alta(nvoRegistro);
             }
@@ -52,7 +53,7 @@ namespace WcfRegActividad
         public IEnumerable<DtoHorario> GetHorariosDisponibles()
         {
             string diaActual = "lunes"; //GetDiaActual(); 
-            int horaActual = 19;//GetHoraActual();  
+            int horaActual = 12;//GetHoraActual();  
 
             // Llamo a los repos y la Query de buscar todos los horarios en base a hora y dia
             // Guardo la respuesta en una lista tipo Horario 
@@ -132,7 +133,7 @@ namespace WcfRegActividad
         }
 
         // Verifica los cupos disponibles para una actividad
-        private bool VerifyCupos(Actividad act)
+        private bool VerifyCupos(Actividad act, int hora)
         {
             // Por defecto seteo el resultado en false
             bool success = false;
@@ -145,7 +146,7 @@ namespace WcfRegActividad
             String fecha = DateTime.Now.ToString("yyyy-MM-dd");
             int cuposAct = act.CuposDisponibles;
             string nombreAct = act.Nombre;
-            int cuposDis = RepoReg.CuposDisponibles(nombreAct, fecha);
+            int cuposDis = RepoReg.CuposDisponibles(nombreAct, fecha, hora);
             
             // Verifico si al consulta fallo, devuelvo de una false
             if (cuposDis!= -1)

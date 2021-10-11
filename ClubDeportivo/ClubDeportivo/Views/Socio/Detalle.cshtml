@@ -5,7 +5,9 @@
     ViewBag.Title = "Detalle";
 }
 
-<h2>Detalle</h2>
+<h2>Detalle Socio</h2>
+
+
 
 @if (Model != null)
 {
@@ -24,6 +26,10 @@
     <p>Estado: @estado</p>
 }
 
+<form action="/socio/IrAModificarSocio?Cedula=@Model.Cedula" method="post">
+    <input type="submit" value="Modificar datos" />
+</form>
+
 
 <p>@ViewBag.msj</p>
 @if (!Model.Estado) {
@@ -33,8 +39,8 @@ else
 {
 if (!ViewBag.tieneMensualidad)
 {
-    <a href="/mensualidad/AltaCuponera">Pagar Pase Libre</a>
-    <a href="/mensualidad/AltaPaseLibre">Pagar Cuponera</a>
+    <a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a>
+    <a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a>
     <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
         <label >Ingrese el dia del mes</label>
         <input type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia"/>

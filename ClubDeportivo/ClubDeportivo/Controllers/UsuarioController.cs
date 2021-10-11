@@ -53,6 +53,7 @@ namespace ClubDeportivo.Controllers
             return View();
         }
 
+        //Login
         [HttpPost]
         public ActionResult Login(string email, string password)
         {

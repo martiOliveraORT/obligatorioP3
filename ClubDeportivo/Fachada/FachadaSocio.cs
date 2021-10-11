@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using Repositorio;
+using System.Text.RegularExpressions;
+
 
 namespace Fachada
 {
@@ -42,45 +44,6 @@ namespace Fachada
             return respuesta;
         }
 
-        public (Socio, string) EliminarSocio(int cedula)
-        {
-            Socio respuesta;
-            string mensaje;
-            bool resCedula = ValidarCedula(cedula);
-            Socio resRegistro = ValidarSocio(cedula);
-            if (!resCedula)
-            {
-                respuesta = null;
-                mensaje = "Cedula incorrecta";
-            }
-            else if (resRegistro == null)
-            {
-                respuesta = null;
-                mensaje = "Ese socio no existe";
-            }
-            else if (!resRegistro.Estado)
-            {
-                respuesta = null;
-                mensaje = "Socio ya dado de baja";
-            }
-            else
-            {
-                RepoSocio repo = new RepoSocio();
-                bool retornoBaja = repo.Baja(cedula);
-                if (!retornoBaja)
-                {
-                    respuesta = null;
-                    mensaje = "Error en BD";
-                }
-                else
-                {
-                    respuesta = ValidarSocio(cedula);
-                    mensaje = "Se ha dado de baja correctamente";
-                }
-            }
-            return (respuesta, mensaje);
-
-        }
 
         public string ModificarSocio(int cedula, string nombre, DateTime fechaNac)
         {
@@ -97,9 +60,9 @@ namespace Fachada
             }
             else
             {
-                bool resNombre = ValidarNombre(resRegistro.Nombre);
-                bool resEdad = ValidarEdad(resRegistro.FechaNac);
-                if (resNombre && resEdad)
+                bool resNombre = ValidarNombre(nombre);
+                bool resEdad = ValidarEdad(fechaNac);
+                if(resNombre && resEdad)
                 {
                     resRegistro.Nombre = nombre;
                     resRegistro.FechaNac = fechaNac;
@@ -111,7 +74,7 @@ namespace Fachada
                     }
                     else
                     {
-                        respuesta = "Se modifico correctamente el socio " + resRegistro.Nombre;
+                        respuesta = "";
                     }
                 }
                 else
@@ -181,6 +144,13 @@ namespace Fachada
             List<RegistroActividad> lista = repo.ingresoSocioPorFecha(cedula, fecha);
             return lista;
         }
+
+        public bool DarAltaSocio(int cedula, int estado)
+        {
+            RepoSocio repo = new RepoSocio();
+            bool respuesta = repo.CambiarEstado(cedula, estado);
+            return respuesta;
+        }
         #endregion
         #region VALIDACIONES
         public static bool ValidarCedula(int ciIngresada)
@@ -202,13 +172,20 @@ namespace Fachada
             bool respuesta = false;
             int largoNombre = nombreIngresado.Length;
             int inicio = nombreIngresado.IndexOf(" ");
-            int final = nombreIngresado.LastIndexOf(" ");
+            int final = nombreIngresado.IndexOf(" ", largoNombre - 1, 1);
 
-            if (largoNombre >= 6 && inicio != 0 && final != largoNombre && inicio >= 0)
+            if (largoNombre >= 6 && inicio != 0 && final != largoNombre - 1 && (inicio >= 0 || final >= 0))
             {
-                respuesta = true;
+                int cantEspacios = Regex.Matches(nombreIngresado, " ").Count;
+                if (cantEspacios > 1)
+                {
+                    respuesta = false;
+                }
+                else
+                {
+                    respuesta = true;
+                }
             }
-
             return respuesta;
         }
 

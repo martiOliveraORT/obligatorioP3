@@ -88,8 +88,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\ClubDeportivo.dll" />
+    <Content Include="bin\ClubDeportivo.pdb" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.4.1.js" />
+    <Content Include="Scripts\jquery-3.4.1.min.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.js" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +116,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -108,19 +124,20 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Usuario\AltaUser.cshtml" />
-    <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Mensualidad\AltaPaseLibre.cshtml" />
     <Content Include="Views\Mensualidad\AltaCuponera.cshtml" />
     <Content Include="Views\RegistroActividad\IngresarActividad.cshtml" />
     <Content Include="Views\RegistroActividad\ListaHorariosDisponibles.cshtml" />
     <Content Include="Views\Socio\AltaSocio.cshtml" />
-    <Content Include="Views\Socio\BajarSocio.cshtml" />
     <Content Include="Views\Socio\BuscarSocio.cshtml" />
     <Content Include="Views\Socio\Detalle.cshtml" />
-    <Content Include="Views\Socio\IrAModificarSocio.cshtml" />
+    <Content Include="Views\Usuario\AltaUser.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Socio\ListarActividades.cshtml" />
+    <Content Include="Views\Socio\IrAModificarSocio.cshtml" />
     <Content Include="Views\Socio\ListarSocios.cshtml" />
+    <Content Include="Scripts\jquery-3.4.1.min.map" />
+    <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -68,45 +68,7 @@ namespace Repositorio
 
         public bool Baja(int id)
         {
-            //Crear conexion
-            Conexion manejadorConexion = new Conexion();
-            SqlConnection cn = manejadorConexion.CrearConexion();
-
-            bool resultado = false;
-            //Se busca al socio, y se le cambia el estado a false (bit 0)
-            SqlCommand cmd = new SqlCommand
-            {
-                CommandText = @"UPDATE Socios SET estado = 0 WHERE cedula = @ced"
-            };
-
-            cmd.Parameters.AddWithValue("@ced", id);
-            cmd.Connection = cn;
-
-            try
-            {
-                manejadorConexion.AbrirConexion(cn);
-                int afectadas = cmd.ExecuteNonQuery();
-
-                if (afectadas == 1)
-                {
-                    resultado = true;
-                }
-                else
-                {
-                    resultado = false;
-                }
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.Message);
-                return false;
-            }
-            finally
-            {
-                manejadorConexion.CerrarConexion(cn);
-            }
-
+            throw new NotImplementedException();
         }
 
         public bool Modificacion(Socio obj)
@@ -119,7 +81,7 @@ namespace Repositorio
 
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"UPDATE Socios SET nombre = @nom, fechaNac = @fechNac WHERE cedula = @ced"
+                CommandText = @"UPDATE Socios SET nombre = @nom, fechaNac = @fechaNac WHERE cedula = @ced"
             };
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
@@ -237,5 +199,49 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
+        public bool CambiarEstado(int cedula, int estado)
+        {
+            //Crear conexion
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+
+            bool resultado;
+
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"UPDATE Socios SET estado = @est WHERE cedula = @ced"
+            };
+            cmd.Parameters.AddWithValue("@ced", cedula);
+            cmd.Parameters.AddWithValue("@est", estado);
+            cmd.Connection = cn;
+
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                int afectadas = cmd.ExecuteNonQuery();
+
+                if (afectadas == 1)
+                {
+                    resultado = true;
+                }
+                else
+                {
+                    resultado = false;
+                }
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return false;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
+
+
     }
 }

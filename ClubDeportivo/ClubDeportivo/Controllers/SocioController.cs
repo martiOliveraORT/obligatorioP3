@@ -43,36 +43,6 @@ namespace ClubDeportivo.Controllers
             return View(socio);
         }
 
-        public ActionResult BajarSocio()
-        {
-            if (Session["Logueado"] == null)
-            {
-                return Redirect("/usuario/Login");
-            }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult BajarSocio(int Cedula)
-        {
-            if (Session["Logueado"] == null)
-            {
-                return Redirect("/usuario/Login");
-            }
-
-            var (socio, msj) = fSocio.EliminarSocio(Cedula);
-
-            if (socio == null)
-            {
-                ViewBag.mensaje = msj;
-            }
-            else
-            {
-                ViewBag.mensaje = msj;
-            }
-
-            return View(socio);
-        }
 
         [HttpPost]
         public ActionResult Detalle(int Cedula)
@@ -161,9 +131,8 @@ namespace ClubDeportivo.Controllers
             }
             var (socio, msj) = fSocio.BuscarSocio(Cedula);
             ViewBag.m = socio;
-            return View();
+            return View(socio);
         }
-
 
         [HttpGet]
         public ActionResult ModificarSocio()
@@ -186,11 +155,41 @@ namespace ClubDeportivo.Controllers
 
             string msj = fSocio.ModificarSocio(socio.Cedula, socio.Nombre, socio.FechaNac);
 
-            ViewBag.mensaje = msj;
-
             socio = new Socio(); //Limpia el formulario del view
 
-            return View("Detallle", socio);
+            return Redirect("ListarSocios");
+        }
+
+        public ActionResult BuscarSocio()
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult BuscarSocio(int cedula)
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            fSocio.BuscarSocio(cedula);
+            return View();
+        }
+
+
+        public ActionResult DarDeAltaSocio(int cedula, int estado)
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            fSocio.DarAltaSocio(cedula, estado);
+
+            return Redirect("ListarSocios");
         }
     }
 }

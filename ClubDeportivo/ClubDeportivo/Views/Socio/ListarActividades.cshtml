@@ -1,0 +1,52 @@
+﻿@using Dominio
+@{
+    ViewBag.Title = "ListarActividades";
+}
+
+<h2>Listar Actividades</h2>
+
+@if (ViewBag.m != null)
+{
+    <p>@ViewBag.m</p>
+}
+
+@if (ViewBag.res != null)
+{
+    if(ViewBag.cant == 0)
+        {
+            <p>No se encuentran registros en base a la busqueda</p>
+        }
+    else
+    {
+    <table class="table" border="1">
+        <tr>
+            <th>
+                Actividad
+            </th>
+            <th>
+                Fecha
+            </th>
+            <th>
+                Hora
+            </th>
+        </tr>
+        @foreach (RegistroActividad item in ViewBag.res)
+        {
+    <tr>
+        <th>
+            @item.Nombre
+        </th>
+        <th>
+            @item.Fecha.ToString("yyyy-MM-dd")
+        </th>
+        <th>
+            @item.hora
+        </th>
+
+    </tr>
+        }
+    </table>
+}
+}
+
+

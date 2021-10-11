@@ -5,7 +5,9 @@
     ViewBag.Title = "Detalle";
 }
 
-<h2>Detalle</h2>
+<h2>Detalle Socio</h2>
+
+
 
 @if (Model != null)
 {
@@ -19,10 +21,14 @@
     }
     <p>Cedula: @Model.Cedula</p>
     <p>Nombre: @Model.Nombre</p>
-    <p>Fecha Nacimiento: @Model.FechaNac</p>
-    <p>Fecha Ingreso: @Model.FechaIngreso</p>
+    <p>Fecha Nacimiento: @Model.FechaNac.ToString("yyyy-MM-dd")</p>
+    <p>Fecha Ingreso: @Model.FechaIngreso.ToString("yyyy-MM-dd")</p>
     <p>Estado: @estado</p>
 }
+
+<form action="/socio/IrAModificarSocio?Cedula=@Model.Cedula" method="post">
+    <input type="submit" value="Modificar datos" />
+</form>
 
 
 <p>@ViewBag.msj</p>
@@ -33,13 +39,21 @@ else
 {
 if (!ViewBag.tieneMensualidad)
 {
-    <a href="/mensualidad/AltaCuponera">Pagar Pase Libre</a>
-    <a href="/mensualidad/AltaPaseLibre">Pagar Cuponera</a>
-    <!--Falta ver las los ingresos del mes por una fecha dada-->
+    <a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a>
+    <a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a>
+    <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
+        <label >Ingrese el dia del mes</label>
+        <input type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia"/>
+        <input type="submit" value="Ir a detalle" />
+    </form>
 }
 else
 {
     <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
-    <!--Falta ver las los ingresos del mes por una fecha dada-->
+    <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
+        <label>Ingrese el dia del mes</label>
+        <input type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" />
+        <input type="submit" value="Ir a detalle" />
+    </form>
 }
 }

@@ -9,6 +9,7 @@ using Dominio;
 using System.Text.RegularExpressions;
 using Repositorio;
 
+
 namespace WcfRegActividad
 {
     public class ServiceRegAct : IServiceRegAct
@@ -17,6 +18,7 @@ namespace WcfRegActividad
         private RepoRegistroActividad RepoReg = new RepoRegistroActividad();
         private RepoActividad RepoHoras = new RepoActividad();
         private RepoSocio RepoSocios = new RepoSocio();
+        private RepoMensualidad RepoMes = new RepoMensualidad();
 
 
 
@@ -27,20 +29,28 @@ namespace WcfRegActividad
             // Busco al socio
             Socio soc = RepoSocios.BuscarPorId(ci);
             Actividad act = RepoHoras.BusarPorNombre(regAct.Actividad);
+            var (validacion, tipo) = VerifyCuposSocio(ci);
 
 
             // Verifico que exista la act o el user
             if (soc == null || act == null) return false;
 
-            if (VerifyCupos(act,regAct.Hora) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad))
+            if (VerifyCupos(act,regAct.Hora) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad)&&validacion)
             {
+
                 RegistroActividad nvoRegistro = new RegistroActividad {
                     Nombre = regAct.Actividad,
                     Fecha = DateTime.Now,
                     Socio = ci,
-                    hora = GetHoraActual() - 1 
+                    hora = regAct.Hora,
             };
                 successReg = RepoReg.Alta(nvoRegistro);
+                if( successReg && tipo == "c")
+                {
+                    RepoMes.RestarCupo(ci);
+                }
+
+
             }
        
             
@@ -48,12 +58,14 @@ namespace WcfRegActividad
         }
 
 
+
+
         // Encargada de traer todos los horarios disponibles que aun no comenzaron
         // Seguramente mas adelante refactorize esto
         public IEnumerable<DtoHorario> GetHorariosDisponibles()
         {
-            string diaActual = "lunes"; //GetDiaActual(); 
-            int horaActual = 12;//GetHoraActual();  
+            string diaActual = GetDiaActual(); 
+            int horaActual = GetHoraActual();  
 
             // Llamo a los repos y la Query de buscar todos los horarios en base a hora y dia
             // Guardo la respuesta en una lista tipo Horario 
@@ -69,6 +81,7 @@ namespace WcfRegActividad
                 // DTOHorario seria la estrcutura de como va devolver la info el servicio
                 // LLamo a la funcion Lista horario
                 IEnumerable<DtoHorario> list = ObtenerListaHorarios(Horas);
+
                 return list;
             }
 
@@ -93,13 +106,16 @@ namespace WcfRegActividad
                 // Luego solo me quedo con el ID para setearlo en DTOhorario a devolver en el servicio
                 Actividad act = RepoHoras.BusarPorNombre(h.Actividad);
                 int idAct = act.Id;
-
-                horariosAux.Add(new DtoHorario
+                // Verifico que haya cupos disponibles en la actividad
+                if(VerifyCupos(act, h.Hora))
                 {
-                    Actividad = h.Actividad,
-                    Hora = h.Hora,
-                    Id = idAct,
-                });
+                    horariosAux.Add(new DtoHorario
+                    {
+                        Actividad = h.Actividad,
+                        Hora = h.Hora,
+                        Id = idAct,
+                    });
+                }
             }
             return horariosAux;
         }
@@ -207,6 +223,30 @@ namespace WcfRegActividad
 
             return success;
 
+        }
+
+        private (bool,string) VerifyCuposSocio(int ci)
+        {
+            bool success = false;
+            var mes = RepoMes.BuscarPorId(ci);
+            Cuponera cuponera = null;
+            if (mes == null) return (false,null);
+
+            if (mes.Tipo() == "c")
+            {
+               cuponera = (Cuponera)mes;
+
+                if (cuponera.IngresosDisponibles > 0)
+                {
+                    success = true;
+                }
+            }
+            else
+            {
+                success = true;
+            }
+
+            return (success,mes.Tipo());
         }
         #endregion
     }

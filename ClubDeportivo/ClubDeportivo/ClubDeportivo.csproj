@@ -108,8 +108,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Usuario\AltaUser.cshtml" />
-    <Content Include="Views\Usuario\Login.cshtml" />
     <Content Include="Views\Mensualidad\AltaPaseLibre.cshtml" />
     <Content Include="Views\Mensualidad\AltaCuponera.cshtml" />
     <Content Include="Views\Socio\AltaSocio.cshtml" />
@@ -121,6 +119,8 @@
     <Content Include="Views\RegistroActividad\IngresarActividad.cshtml" />
     <Content Include="Views\Socio\ListarActividades.cshtml" />
     <Content Include="Views\Socio\IrAModificarSocio.cshtml" />
+    <Content Include="Views\Usuario\AltaUser.cshtml" />
+    <Content Include="Views\Usuario\Login.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -14,8 +14,8 @@ namespace Fachada
         {
             RepoUsuario repoUser = new RepoUsuario();
             Usuario user = repoUser.BuscarPorEmail(email);
-
-            if (user.Password == password)
+            string desEncriptada = DesEncriptar(user.Password);
+            if (desEncriptada == password)
             {
                 return user;
             }
@@ -28,22 +28,29 @@ namespace Fachada
         public string AltaUsuario(string email, string password)
         {
             string msj = ValidarCamposAltaUsuario(email, password);
-
+            
             if (msj == "")
             {
+                string encriptada = Encriptar(password);
                 Usuario user = new Usuario()
                 {
                     Email = email,
-                    Password = password
+                    Password = encriptada
                 };
                 RepoUsuario repoUser = new RepoUsuario();
-
-                if (!repoUser.Alta(user))
+                
+                if (repoUser.BuscarPorEmail(email) == null)
                 {
-                    msj = "Error al cargar usuario";
+                    if (!repoUser.Alta(user))
+                    {
+                        msj = "Error al cargar usuario";
+                    }
+                }
+                else
+                {
+                    msj = "Este email ya esta en uso";
                 }
             }
-
             return msj;
         }
 
@@ -70,17 +77,17 @@ namespace Fachada
         //formato email: un @ y punto luego del mismo
         public static bool ValidarEmail(string email)
         {
-            bool ok = false;
+            bool ok = false;         
             int cantArroba = 0;
             bool punto = false;
 
             for (int i = 0; i < email.Length; i++)
             {
-
+               
                 if (email[i].ToString() == "@")
                 {
                     cantArroba++;
-                    for (int j = i + 1; j < email.Length; j++)
+                    for (int j = i+1; j < email.Length; j++)
                     {
                         if (email[j].ToString() == ".")
                         {
@@ -100,7 +107,7 @@ namespace Fachada
         //contraseña con al menos 6 caracteres que incluyan letras mayúsculas y minúsculas(al menos una de cada una) y dígitos(0 al 9)
         public static bool ValidarPassword(string password)
         {
-            bool ok = false;
+            bool ok = false;            
 
             string letrasMayus = "ABCDEFGHIJKLMNÑOPKRSTUVWXYZ";
             string letrasMin = letrasMayus.ToLower();
@@ -132,6 +139,21 @@ namespace Fachada
                 }
             }
             return ok;
+        }
+        public static string Encriptar(string password)
+        {
+            string txt;
+            byte[] encryted = System.Text.Encoding.Unicode.GetBytes(password);
+            txt = Convert.ToBase64String(encryted);
+            return txt;
+        }
+
+        public static string DesEncriptar(string password)
+        {
+            string txt;
+            byte[] decryted = Convert.FromBase64String(password);
+            txt = System.Text.Encoding.Unicode.GetString(decryted);
+            return txt;
         }
     }
 }

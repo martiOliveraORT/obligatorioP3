@@ -16,12 +16,21 @@ namespace ClubDeportivo.Controllers
         [HttpGet]
         public ActionResult AltaSocio()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View(new Socio());
         }
 
         [HttpPost]
         public ActionResult AltaSocio(Socio socio)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+
             socio.FechaIngreso = DateTime.Now;
             socio.Estado = true;
 
@@ -36,15 +45,24 @@ namespace ClubDeportivo.Controllers
 
         public ActionResult BajarSocio()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View();
         }
 
         [HttpPost]
         public ActionResult BajarSocio(int Cedula)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+
             var (socio, msj) = fSocio.EliminarSocio(Cedula);
 
-            if(socio == null)
+            if (socio == null)
             {
                 ViewBag.mensaje = msj;
             }
@@ -56,50 +74,64 @@ namespace ClubDeportivo.Controllers
             return View(socio);
         }
 
-        public ActionResult BuscarSocio()
-        {
-            return View();
-        }
-
         [HttpPost]
         public ActionResult Detalle(int Cedula)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+
             var (Socio, msj) = fSocio.BuscarSocio(Cedula);
 
             //buscar mensualidad de socio
             var (mens, msjMens) = fMensualidad.BuscarMesualidad(Cedula);
 
-            if (mens.Vencimiento > DateTime.Now)
+            if (mens == null)
             {
-                //si esta paga, navega a ingresar actividades y ver todos los ingresos que realizó en una fecha dada en el mes corriente
-                ViewBag.tieneMensualidad = true;
-
+                ViewBag.tieneMensualidad = false;
             }
             else
             {
-                //si no esta paga, link al registro de pago para el socio y ver todos los ingresos que realizó en una fecha dada en el mes corriente
-                ViewBag.tieneMensualidad = false;
+                if (mens.Vencimiento > DateTime.Now)
+                {
+                    //si esta paga, navega a ingresar actividades y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+                    ViewBag.tieneMensualidad = true;
 
+                }
+                else
+                {
+                    //si no esta paga, link al registro de pago para el socio y ver todos los ingresos que realizó en una fecha dada en el mes corriente
+                    ViewBag.tieneMensualidad = false;
+
+                }
             }
-
             ViewBag.msj = msj;
-           
 
             return View(Socio);
         }
 
         public ActionResult ListarSocios()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+
             var (socios, msj) = fSocio.ListarSocios();
             ViewBag.msj = msj;
             ViewBag.socios = socios;
             return View();
         }
 
-        public ActionResult ListarActividades(int cedula, int mes)
+        public ActionResult ListarActividades(int cedula, int dia)
         {
-            List<RegistroActividad> lista = fSocio.BuscarActividadesPorSocio(cedula, mes);
-            if(lista == null)
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            List<RegistroActividad> lista = fSocio.BuscarActividadesPorSocio(cedula, dia);
+            if (lista == null)
             {
                 ViewBag.m = "Error en la BD";
             }
@@ -111,5 +143,54 @@ namespace ClubDeportivo.Controllers
             return View();
         }
 
+        public ActionResult IrAModificarSocio()
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            return View(new Socio());
+        }
+
+        [HttpPost]
+        public ActionResult IrAModificarSocio(int Cedula)
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            var (socio, msj) = fSocio.BuscarSocio(Cedula);
+            ViewBag.m = socio;
+            return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult ModificarSocio()
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            return View(new Socio());
+        }
+
+        [HttpPost]
+        public ActionResult ModificarSocio(Socio socio)
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+            socio.FechaIngreso = DateTime.Now;
+
+            string msj = fSocio.ModificarSocio(socio.Cedula, socio.Nombre, socio.FechaNac);
+
+            ViewBag.mensaje = msj;
+
+            socio = new Socio(); //Limpia el formulario del view
+
+            return View("Detallle", socio);
+        }
     }
 }

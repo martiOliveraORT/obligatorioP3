@@ -28,7 +28,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@ced", obj.Socio);
             cmd.Parameters.AddWithValue("@nomAct", obj.Nombre);
             cmd.Parameters.AddWithValue("@fecha", obj.Fecha);
-            cmd.Parameters.AddWithValue("@hr", obj.hora);
+            cmd.Parameters.AddWithValue("@hr", obj.Hora);
 
             cmd.Connection = cn;// SETEAR!!
 
@@ -97,14 +97,13 @@ namespace Repositorio
                 SqlDataReader filas = cmd.ExecuteReader();
                 while (filas.Read())
                 {
-                    
+
                     ingresos.Add(new RegistroActividad
                     {
                         Socio = (int)filas["socio"],
                         Nombre = (string)filas["Actividad"],
                         Fecha = (DateTime)filas["fecha"],
                         hora = (int)filas["hora"],
-   
                     });
                 }
                 return ingresos;
@@ -254,7 +253,7 @@ namespace Repositorio
                         Socio = (int)filas["socio"],
                         Nombre = (string)filas["Actividad"],
                         Fecha = (DateTime)filas["fecha"],
-                        hora = (int)filas["hora"],
+                        Hora = (int)filas["hora"],
                     });
                 }
                 return ingresos;

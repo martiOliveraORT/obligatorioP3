@@ -53,7 +53,7 @@ namespace Repositorio
             // Finalmente si o si cerramos la conexion
             finally
             {
-                
+
                 manejadorConexion.CerrarConexion(cn);
             }
         }
@@ -158,7 +158,7 @@ namespace Repositorio
             // Seteamos la Query para la BD
             SqlCommand cmd = new SqlCommand
             {
-               
+
                 CommandText = @"SELECT * FROM Actividades "
             };
             cmd.Connection = cn;
@@ -206,7 +206,7 @@ namespace Repositorio
                 CommandText = @"SELECT * FROM Actividades WHERE id = @act "
             };
             cmd.Parameters.AddWithValue("@act", id);
-            
+
 
 
             try
@@ -318,11 +318,12 @@ namespace Repositorio
 
             try
             {
-                if (manejadorConexion.AbrirConexion(cn)){
+                if (manejadorConexion.AbrirConexion(cn))
+                {
                     SqlDataReader filas = cmd.ExecuteReader();
                     while (filas.Read())
                     {
-                        
+
                         horas.Add(new Horario
                         {
                             Actividad = (string)filas["actividad"],
@@ -330,7 +331,7 @@ namespace Repositorio
                             Hora = (int)filas["hora"],
 
                         });
-                    } 
+                    }
                 }
                 return horas;
             }
@@ -345,6 +346,7 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
 
         public List<Horario> TraerTodosHorarios()
         {
@@ -398,8 +400,6 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
-
         #endregion
-
     }
 }

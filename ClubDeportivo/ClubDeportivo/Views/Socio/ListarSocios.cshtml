@@ -8,7 +8,7 @@
 
 @if (ViewBag.socios != null)
 {
-    <table class="table" border="1">
+    <table class="table table-striped">
         <tr>
             <th>
                 Nombre
@@ -31,7 +31,7 @@
                 </th>
                 <th>
                     <form action="/socio/Detalle?Cedula=@item.Cedula" method="post">
-                        <input type="submit" value="Ir a detalle" />
+                        <button class="btn btn-primary" type="submit">Ir a detalle</button>
                     </form>
                 </th>
             </tr>

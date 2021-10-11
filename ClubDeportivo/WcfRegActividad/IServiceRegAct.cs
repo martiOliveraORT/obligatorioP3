@@ -31,17 +31,17 @@ namespace WcfRegActividad
         public string Nombre { get; set; }
         [DataMember]
         public DateTime Fecha { get; set; }
-      
+
     };
 
     //HORARIO
     public class DtoHorario
     {
-     
+
         [DataMember]
-        public string Actividad { get; set;}
+        public string Actividad { get; set; }
         [DataMember]
-        public int Hora{ get; set; }
+        public int Hora { get; set; }
         [DataMember]
         public int Id { get; set; }
 
@@ -50,5 +50,3 @@ namespace WcfRegActividad
 
     #endregion
 }
-
-

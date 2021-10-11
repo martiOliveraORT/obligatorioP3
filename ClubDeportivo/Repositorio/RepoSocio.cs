@@ -29,7 +29,6 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@fechaIng", obj.FechaIngreso);
-            cmd.Connection = cn;
             if (obj.Estado)
             {
                 estado = 1;
@@ -39,6 +38,7 @@ namespace Repositorio
                 estado = 0;
             }
             cmd.Parameters.AddWithValue("@estado", estado);
+            cmd.Connection = cn;
 
             try
             {
@@ -81,6 +81,7 @@ namespace Repositorio
 
             cmd.Parameters.AddWithValue("@ced", id);
             cmd.Connection = cn;
+
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -124,6 +125,7 @@ namespace Repositorio
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);
             cmd.Parameters.AddWithValue("@ced", obj.Cedula);
             cmd.Connection = cn;
+
             try
             {
                 manejadorConexion.AbrirConexion(cn);
@@ -167,16 +169,16 @@ namespace Repositorio
             try
             {
                 manejadorConexion.AbrirConexion(cn);
-                SqlDataReader filas = cmd.ExecuteReader();
+                SqlDataReader filas = cmd.ExecuteReader();                
                 while (filas.Read())
-                {
+                {                    
                     socios.Add(new Socio
                     {
                         Cedula = (int)filas["cedula"],
                         Nombre = (string)filas["nombre"],
                         FechaNac = (DateTime)filas["fechaNac"],
                         FechaIngreso = (DateTime)filas["fechaIng"],
-                        Estado = (Boolean)filas["estado"],
+                        Estado = (Boolean)filas["estado"]
                     });
                 }
                 return socios;
@@ -184,7 +186,7 @@ namespace Repositorio
             catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
-                return socios = null;
+                return socios;
             }
             finally
             {

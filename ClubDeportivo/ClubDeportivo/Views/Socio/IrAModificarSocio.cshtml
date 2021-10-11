@@ -10,10 +10,8 @@
     <label for="Cedula">Cedula:</label>
     <input type="number" required name="Cedula" value="@Model.Cedula" readonly /><br />
     <label for="Nombre">Nombre:</label>
-    <input type="text" required name="Nombre" value="@Model.Nombre" /><br />
+    <input class="form-control" type="text" required name="Nombre" value="@Model.Nombre" /><br />
     <label for="FechaNac">Fecha de Nacimiento:</label>
-    <input type="date" required name="FechaNac" value="@Model.FechaNac" /><br />
-    <button type="submit">Modificar socio</button>
+    <input class="form-control" type="date" required name="FechaNac" value="@Model.FechaNac" /><br />
+    <button class="btn btn-primary" type="submit">Modificar socio</button>
 </form>
-
-<p>@ViewBag.mesaje</p>

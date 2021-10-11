@@ -16,12 +16,21 @@ namespace ClubDeportivo.Controllers
         [HttpGet]
         public ActionResult AltaUser()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View(new Usuario());
         }
 
         [HttpPost]
         public ActionResult AltaUser(Usuario user)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
+
             string msj = FchUsuario.AltaUsuario(user.Email, user.Password);
 
             if (msj == "")
@@ -32,6 +41,7 @@ namespace ClubDeportivo.Controllers
             else
             {
                 ViewBag.mensaje = msj;
+                user = new Usuario();//LIMPIA EL FORMULARIO DEL VIEW
             }
 
             return View(user);
@@ -48,18 +58,24 @@ namespace ClubDeportivo.Controllers
         public ActionResult Login(string email, string password)
         {
             Usuario user = FchUsuario.Login(email, password);
-
-            if (user == null)
+            if (user != null)
             {
-                ViewBag.mensaje = "Error al ingresar";
+                Session["Logueado"] = true;
+                Session["LogueadoEmail"] = user.Email;
+                return Redirect("/socio/ListarSocios");
             }
             else
             {
-                //queda en proceso
-                ViewBag.mensaje = "Exito";
+                ViewBag.mensaje = "Error al ingresar";
             }
 
             return View();
+        }
+
+        public ActionResult Logout()
+        {         
+            Session.Clear();
+            return Redirect("/usuario/Login");
         }
     }
 }

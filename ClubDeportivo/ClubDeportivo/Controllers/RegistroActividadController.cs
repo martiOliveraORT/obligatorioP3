@@ -13,6 +13,10 @@ namespace ClubDeportivo.Controllers
         ServiceRegAct service = new ServiceRegAct();
         public ActionResult ListaHorariosDisponibles(int cedula)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             IEnumerable<DtoHorario> horarios = service.GetHorariosDisponibles();
             ViewBag.res = horarios;
             ViewBag.socio = cedula;
@@ -21,11 +25,19 @@ namespace ClubDeportivo.Controllers
 
         public ActionResult IngresarActividad()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View();
         }
         [HttpPost]
-        public ActionResult IngresarActividad(int cedula,string actividad, int hora, int id)
-        {       
+        public ActionResult IngresarActividad(int cedula, string actividad, int hora, int id)
+        {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             DtoHorario horario = new DtoHorario
             {
                 Actividad = actividad,

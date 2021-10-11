@@ -10,20 +10,22 @@ namespace ClubDeportivo.Controllers
 {
     public class MensualidadController : Controller
     {
-        FachadaMensualidad FchMensualidad = new FachadaMensualidad();
-        // GET: Mensualidad
-        public ActionResult Index()
-        {
-            return View();
-        }
-
+        FachadaMensualidad FchMensualidad = new FachadaMensualidad();   
         public ActionResult AltaPaseLibre()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult AltaPaseLibre(int ci)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             var (ok, msj) = FchMensualidad.AltaMensualidadPL(ci);
 
             if (ok)
@@ -40,11 +42,19 @@ namespace ClubDeportivo.Controllers
 
         public ActionResult AltaCuponera()
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             return View();
         }
         [HttpPost]
         public ActionResult AltaCuponera(int ci, int ingDisp)
         {
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             var (ok, msj) = FchMensualidad.AltaMensualidadCuponera(ci, ingDisp);
 
             if (ok)

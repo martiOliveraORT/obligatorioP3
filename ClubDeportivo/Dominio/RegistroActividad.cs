@@ -11,8 +11,6 @@ namespace Dominio
         public int Socio { get; set; }
         public string Nombre { get; set; }
         public DateTime Fecha { get; set; }
-        public int hora { get; set; }
-
-            
+        public int Hora { get; set; }
     }
 }

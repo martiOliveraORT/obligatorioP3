@@ -100,9 +100,9 @@ namespace ClubDeportivo.Controllers
             return View();
         }
 
-        public ActionResult ListarActividades(int cedula, int mes)
+        public ActionResult ListarActividades(int cedula, int dia)
         {
-            List<RegistroActividad> lista = fSocio.BuscarActividadesPorSocio(cedula, mes);
+            List<RegistroActividad> lista = fSocio.BuscarActividadesPorSocio(cedula, dia);
             if(lista == null)
             {
                 ViewBag.m = "Error en la BD";
@@ -125,28 +125,29 @@ namespace ClubDeportivo.Controllers
         {
             var (socio, msj) = fSocio.BuscarSocio(Cedula);
             ViewBag.m = socio;
-            return View();
+            return View(socio);
         }
-
 
         [HttpGet]
         public ActionResult ModificarSocio()
         {
-            return View(new Socio());
+            Socio socio = new Socio();
+            return View(socio);
         }
 
         [HttpPost]
         public ActionResult ModificarSocio(Socio socio)
         {
-            socio.FechaIngreso = DateTime.Now;
-
             string msj = fSocio.ModificarSocio(socio.Cedula, socio.Nombre, socio.FechaNac);
-
-            ViewBag.mensaje = msj;
 
             socio = new Socio(); //Limpia el formulario del view
 
-            return View("Detallle", socio);
+            return Redirect("ListarSocios");
+        }
+
+        public ActionResult BuscarSocioCedula()
+        {
+            return View();
         }
 
     }

@@ -118,7 +118,7 @@ namespace Repositorio
 
             SqlCommand cmd = new SqlCommand
             {
-                CommandText = @"UPDATE Socios SET nombre = @nom, fechaNac = @fechNac WHERE cedula = @ced"
+                CommandText = @"UPDATE Socios SET nombre = @nom, fechaNac = @fechaNac WHERE cedula = @ced"
             };
             cmd.Parameters.AddWithValue("@nom", obj.Nombre);
             cmd.Parameters.AddWithValue("@fechaNac", obj.FechaNac);

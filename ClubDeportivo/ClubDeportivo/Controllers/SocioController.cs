@@ -53,7 +53,11 @@ namespace ClubDeportivo.Controllers
             }
 
             var (Socio, msj) = fSocio.BuscarSocio(Cedula);
-
+            if(Socio == null)
+            {
+                ViewBag.m = msj;
+                return View("BuscarSocio");
+            }
             //buscar mensualidad de socio
             var (mens, msjMens) = fMensualidad.BuscarMesualidad(Cedula);
 
@@ -176,7 +180,12 @@ namespace ClubDeportivo.Controllers
             {
                 return Redirect("/usuario/Login");
             }
-            fSocio.BuscarSocio(cedula);
+            var (socio, msj) = fSocio.BuscarSocio(cedula);
+            if(socio == null)
+            {
+                ViewBag.m = msj;
+                return View("BuscarSocio");
+            }
             return View();
         }
 

@@ -15,7 +15,10 @@ namespace ClubDeportivo.Controllers
 
         public ActionResult ExportarArchivos()
         {
-
+            if (Session["Logueado"] == null)
+            {
+                return Redirect("/usuario/Login");
+            }
             ViewBag.res = expArchivos.ExportarTodos();
      
             return View();

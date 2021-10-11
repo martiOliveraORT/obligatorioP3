@@ -173,8 +173,9 @@ namespace Fachada
             int largoNombre = nombreIngresado.Length;
             int inicio = nombreIngresado.IndexOf(" ");
             int final = nombreIngresado.IndexOf(" ", largoNombre - 1, 1);
+            bool contieneNumeros = Regex.IsMatch(nombreIngresado, @"^[a-zA-Z ]*$");
 
-            if (largoNombre >= 6 && inicio != 0 && final != largoNombre - 1 && (inicio >= 0 || final >= 0))
+            if (largoNombre >= 6 && inicio != 0 && final != largoNombre - 1 && contieneNumeros &&(inicio >= 0 || final >= 0))
             {
                 int cantEspacios = Regex.Matches(nombreIngresado, " ").Count;
                 if (cantEspacios > 1)

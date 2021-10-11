@@ -35,7 +35,7 @@
 <p>@ViewBag.msj</p>
 @if (!Model.Estado)
 {
-    <a href="">Dar de alta</a>
+    <a href="DarDeAltaSocio?cedula=@Model.Cedula&estado=1">Dar de alta</a>
 }
 else
 {
@@ -58,4 +58,6 @@ else
             <button class="btn btn-primary" type="submit">Ir a detalle</button>
         </form>
     }
+
+    <a href="DarDeAltaSocio?cedula=@Model.Cedula&estado=0">Dar de baja</a>
 }

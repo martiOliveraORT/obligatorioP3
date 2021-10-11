@@ -21,37 +21,43 @@ namespace Fachada
             Socio socio = fachadaSocio.ValidarSocio(ci);            
             decimal costo;
             Mensualidad mens = repoMensualidad.BuscarPorId(ci);
-
-            if (mens.Vencimiento < fechaHoy)
+            if (mens != null)
             {
-                if (socio != null)
+                if (mens.Vencimiento < fechaHoy)
                 {
-                    var (valorCuota, porcDescuento, antig) = repoMensualidad.TraerValoresPaseLibre();
-                    costo = CalcularCostoPL(porcDescuento, valorCuota, antig, socio.FechaIngreso);
-                    PaseLibre ps = new PaseLibre()
-                    { 
-                         Costo = costo,
-                         Fecha = fechaHoy,
-                         Socio = socio,
-                         Vencimiento = fechaVencimiento,
-                         Descuento = porcDescuento
-                    };
-                    ok = repoMensualidad.AltaPaseLibre(ps);                               
-                }
+                    if (socio != null)
+                    {
+                        var (valorCuota, porcDescuento, antig) = repoMensualidad.TraerValoresPaseLibre();
+                        costo = CalcularCostoPL(porcDescuento, valorCuota, antig, socio.FechaIngreso);
+                        PaseLibre ps = new PaseLibre()
+                        { 
+                             Costo = costo,
+                             Fecha = fechaHoy,
+                             Socio = socio,
+                             Vencimiento = fechaVencimiento,
+                             Descuento = porcDescuento
+                        };
+                        ok = repoMensualidad.AltaPaseLibre(ps); 
+                    }
 
-                if (ok)
-                {
-                    msj = "Se registro el pase libre con exito";
+                    if (ok)
+                    {
+                        msj = "Se registro el pase libre con exito";
+                    }
+                    else
+                    {
+                        msj = "No fue posible registrar el pase libre";
+                    }
                 }
                 else
                 {
-                    msj = "No fue posible registrar el pase libre";
+                    msj = "Este usuario ya tiene una mensualidad activa";
                 }
             }
             else
             {
-                msj = "Este usuario ya tiene una mensualidad activa";
-            }           
+                msj = "La cedula ingresada no existe en el registro";
+            }
 
             return (ok, msj);
         }
@@ -72,30 +78,45 @@ namespace Fachada
                 DateTime fechaVencimiento = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1).AddDays(-1);
                 Socio socio = fachadaSocio.ValidarSocio(ci);
                 decimal costo;
+                Mensualidad mens = repoMensualidad.BuscarPorId(ci);
 
-                if (socio != null)
+                if (mens != null)
                 {
-                    var (precioUnitario, porcDescuento, cantAct) = repoMensualidad.TraerValoresCuponera();
-                    costo = CalcularCostoCup(porcDescuento, precioUnitario, cantAct, ingresosDisp);
-                    Cuponera cup = new Cuponera()
+                    if (mens.Vencimiento < fechaHoy)
                     {
-                         Costo = costo,
-                         Fecha = fechaHoy,
-                         Socio = socio,
-                         Vencimiento = fechaVencimiento,
-                         IngresosDisponibles = ingresosDisp,
-                         Descuento = porcDescuento
-                    };
-                    ok = repoMensualidad.AltaCuponera(cup);                
-                }
+                        if (socio != null)
+                        {
+                            var (precioUnitario, porcDescuento, cantAct) = repoMensualidad.TraerValoresCuponera();
+                            costo = CalcularCostoCup(porcDescuento, precioUnitario, cantAct, ingresosDisp);
+                            Cuponera cup = new Cuponera()
+                            {
+                                 Costo = costo,
+                                 Fecha = fechaHoy,
+                                 Socio = socio,
+                                 Vencimiento = fechaVencimiento,
+                                 IngresosDisponibles = ingresosDisp,
+                                 Descuento = porcDescuento
+                            };
+                            ok = repoMensualidad.AltaCuponera(cup);                
+                        }
 
-                if (ok)
-                {
-                    msj = "Se registro la cuponera con exito";
+                        if (ok)
+                        {
+                            msj = "Se registro la cuponera con exito";
+                        }
+                        else
+                        {
+                            msj = "No fue posible registrar la cuponera";
+                        }
+                    }
+                    else
+                    {
+                        msj = "Este usuario ya tiene una mensualidad activa";
+                    }
                 }
                 else
                 {
-                    msj = "No fue posible registrar la cuponera";
+                    msj = "La cedula ingresada no existe en el registro";
                 }
             }
             return (ok, msj);
@@ -109,7 +130,7 @@ namespace Fachada
             RepoMensualidad repo = new RepoMensualidad();
             mens = repo.BuscarPorId(cedula);
 
-            if(mens == null)
+            if (mens == null)
             {
                 msj = "Error al buscar en BD";
             }

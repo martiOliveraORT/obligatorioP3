@@ -20,7 +20,7 @@ namespace Fachada
             bool resEdad = ValidarEdad(newSocio.FechaNac);
             Socio resRegistro = ValidarSocio(newSocio.Cedula);
 
-            if(resCedula && resNombre && resEdad && resRegistro == null)
+            if (resCedula && resNombre && resEdad && resRegistro == null)
             {
                 RepoSocio repo = new RepoSocio();
                 newSocio.Estado = true;
@@ -78,7 +78,7 @@ namespace Fachada
                     mensaje = "Se ha dado de baja correctamente";
                 }
             }
-            return (respuesta, mensaje);           
+            return (respuesta, mensaje);
 
         }
 
@@ -99,7 +99,7 @@ namespace Fachada
             {
                 bool resNombre = ValidarNombre(resRegistro.Nombre);
                 bool resEdad = ValidarEdad(resRegistro.FechaNac);
-                if(resNombre && resEdad)
+                if (resNombre && resEdad)
                 {
                     resRegistro.Nombre = nombre;
                     resRegistro.FechaNac = fechaNac;
@@ -156,10 +156,11 @@ namespace Fachada
             RepoSocio repo = new RepoSocio();
             socios = repo.TraerTodo();
 
-            if(socios.Count == 0)
+            if (socios.Count == 0)
             {
                 mensaje = "No se encuentran socios";
-            }else if(socios == null)
+            }
+            else if (socios == null)
             {
                 mensaje = "Error al traer la lista";
             }
@@ -170,10 +171,10 @@ namespace Fachada
             return (socios, mensaje);
         }
 
-        public List<RegistroActividad> BuscarActividadesPorSocio(int cedula, int mes)
+        public List<RegistroActividad> BuscarActividadesPorSocio(int cedula, int dia)
         {
             DateTime hoy = DateTime.Now;
-            int dia = hoy.Day;
+            int mes = hoy.Month;
             int year = hoy.Year;
             DateTime fecha = new DateTime(year, mes, dia);
             RepoRegistroActividad repo = new RepoRegistroActividad();
@@ -233,7 +234,7 @@ namespace Fachada
             RepoSocio repo = new RepoSocio();
             Socio resp = repo.BuscarPorId(cedula);
             //Si resp es null, es decir que no se encuentra en la BD, retorno null
-            if(resp == null)
+            if (resp == null)
             {
                 respuesta = null;
             }

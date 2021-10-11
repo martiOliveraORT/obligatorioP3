@@ -16,7 +16,8 @@
     {
         estado = "Activo";
     }
-    else {
+    else
+    {
         estado = "Inactivo";
     }
     <p>Cedula: @Model.Cedula</p>
@@ -27,33 +28,34 @@
 }
 
 <form action="/socio/IrAModificarSocio?Cedula=@Model.Cedula" method="post">
-    <input type="submit" value="Modificar datos" />
+    <button class="btn btn-primary" type="submit">Modificar datos</button>
 </form>
 
 
 <p>@ViewBag.msj</p>
-@if (!Model.Estado) {
-<a href="">Dar de alta</a>
+@if (!Model.Estado)
+{
+    <a href="">Dar de alta</a>
 }
 else
 {
-if (!ViewBag.tieneMensualidad)
-{
-    <a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a>
-    <a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a>
-    <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
-        <label >Ingrese el dia del mes</label>
-        <input type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia"/>
-        <input type="submit" value="Ir a detalle" />
-    </form>
-}
-else
-{
-    <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
-    <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
-        <label>Ingrese el dia del mes</label>
-        <input type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" />
-        <input type="submit" value="Ir a detalle" />
-    </form>
-}
+    if (!ViewBag.tieneMensualidad)
+    {
+        <a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a>
+        <a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a>
+        <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
+            <label>Ingrese el dia del mes</label>
+            <input class="form-control" type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" /><br />
+            <button class="btn btn-primary" type="submit">Ir a detalle</button>
+        </form>
+    }
+    else
+    {
+        <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
+        <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
+            <label>Ingrese el dia del mes</label>
+            <input class="form-control" type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" /><br />
+            <button class="btn btn-primary" type="submit">Ir a detalle</button>
+        </form>
+    }
 }

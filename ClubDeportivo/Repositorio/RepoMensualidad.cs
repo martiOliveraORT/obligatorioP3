@@ -14,12 +14,12 @@ namespace Repositorio
         public bool Alta(Mensualidad obj)
         {
             bool ok = false;
-            if (obj.Tipo() == "Pase Libre")
+            if (obj.Tipo() == "l")
             {
                 PaseLibre ps = (PaseLibre)obj;
                 ok = AltaPaseLibre(ps);
             }
-            else if (obj.Tipo() == "Cuponera")
+            else if (obj.Tipo() == "c")
             {
                 Cuponera cup = (Cuponera)obj;
                 ok = AltaCuponera(cup);
@@ -307,7 +307,7 @@ namespace Repositorio
                 return respuesta;
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Console.WriteLine(ex.Message);
                 return respuesta;

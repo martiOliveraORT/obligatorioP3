@@ -9,7 +9,6 @@ using Dominio;
 using System.Text.RegularExpressions;
 using Repositorio;
 
-
 namespace WcfRegActividad
 {
     public class ServiceRegAct : IServiceRegAct
@@ -35,25 +34,26 @@ namespace WcfRegActividad
             // Verifico que exista la act o el user
             if (soc == null || act == null) return false;
 
-            if (VerifyCupos(act,regAct.Hora) && VerifyEdad(soc, act)&& VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci,regAct.Actividad)&&validacion)
+            if (VerifyCupos(act, regAct.Hora) && VerifyEdad(soc, act) && VerifyHorario(regAct.Hora) && VerifyIngresoPrevio(ci, regAct.Actividad) && validacion)
             {
 
-                RegistroActividad nvoRegistro = new RegistroActividad {
+                RegistroActividad nvoRegistro = new RegistroActividad
+                {
                     Nombre = regAct.Actividad,
                     Fecha = DateTime.Now,
                     Socio = ci,
-                    hora = regAct.Hora,
-            };
+                    Hora = regAct.Hora,
+                };
                 successReg = RepoReg.Alta(nvoRegistro);
-                if( successReg && tipo == "c")
+                if (successReg && tipo == "c")
                 {
                     RepoMes.RestarCupo(ci);
                 }
 
 
             }
-       
-            
+
+
             return successReg;
         }
 
@@ -64,8 +64,8 @@ namespace WcfRegActividad
         // Seguramente mas adelante refactorize esto
         public IEnumerable<DtoHorario> GetHorariosDisponibles()
         {
-            string diaActual = GetDiaActual(); 
-            int horaActual = GetHoraActual();  
+            string diaActual = GetDiaActual();
+            int horaActual = GetHoraActual();
 
             // Llamo a los repos y la Query de buscar todos los horarios en base a hora y dia
             // Guardo la respuesta en una lista tipo Horario 
@@ -107,7 +107,7 @@ namespace WcfRegActividad
                 Actividad act = RepoHoras.BusarPorNombre(h.Actividad);
                 int idAct = act.Id;
                 // Verifico que haya cupos disponibles en la actividad
-                if(VerifyCupos(act, h.Hora))
+                if (VerifyCupos(act, h.Hora))
                 {
                     horariosAux.Add(new DtoHorario
                     {
@@ -153,19 +153,19 @@ namespace WcfRegActividad
         {
             // Por defecto seteo el resultado en false
             bool success = false;
-      
+
 
             // Si la actividad es null ya corto como false
             if (act == null) return false;
-            
+
             // Tomo la fecha de hoy como string
             String fecha = DateTime.Now.ToString("yyyy-MM-dd");
             int cuposAct = act.CuposDisponibles;
             string nombreAct = act.Nombre;
             int cuposDis = RepoReg.CuposDisponibles(nombreAct, fecha, hora);
-            
+
             // Verifico si al consulta fallo, devuelvo de una false
-            if (cuposDis!= -1)
+            if (cuposDis != -1)
             {
                 // Hago la resta para verificar si hay cupos disponibles
                 // Cupos de la actividad - cuantos hay anotados hasta el momento
@@ -193,7 +193,7 @@ namespace WcfRegActividad
             if (edad >= ActEdadMin && edad <= ActEdadMax)
             {
                 success = true;
-     
+
             }
 
             return success;
@@ -203,7 +203,7 @@ namespace WcfRegActividad
         {
             bool success = false;
             int horaActual = GetHoraActual() - 1;
-            
+
             if (horaActual < horaComienzoAct)
             {
                 success = true;
@@ -213,7 +213,7 @@ namespace WcfRegActividad
         }
 
 
-        private bool VerifyIngresoPrevio(int ci, string nombreAct )
+        private bool VerifyIngresoPrevio(int ci, string nombreAct)
         {
             bool success = false;
             String fecha = DateTime.Now.ToString("yyyy-MM-dd", new CultureInfo("es-ES"));
@@ -225,16 +225,16 @@ namespace WcfRegActividad
 
         }
 
-        private (bool,string) VerifyCuposSocio(int ci)
+        private (bool, string) VerifyCuposSocio(int ci)
         {
             bool success = false;
             var mes = RepoMes.BuscarPorId(ci);
             Cuponera cuponera = null;
-            if (mes == null) return (false,null);
+            if (mes == null) return (false, null);
 
             if (mes.Tipo() == "c")
             {
-               cuponera = (Cuponera)mes;
+                cuponera = (Cuponera)mes;
 
                 if (cuponera.IngresosDisponibles > 0)
                 {
@@ -246,7 +246,7 @@ namespace WcfRegActividad
                 success = true;
             }
 
-            return (success,mes.Tipo());
+            return (success, mes.Tipo());
         }
         #endregion
     }

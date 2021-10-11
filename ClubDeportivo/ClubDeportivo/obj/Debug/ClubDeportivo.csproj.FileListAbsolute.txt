@@ -327,7 +327,6 @@ C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Clu
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.CopyComplete
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.dll
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.pdb
-<<<<<<< HEAD
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.AssemblyReference.cache
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.CoreCompileInputs.cache
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.dll
@@ -416,7 +415,6 @@ C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Club
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\es\System.Web.Helpers.resources.dll
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\es\System.Web.Mvc.resources.dll
 C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.CopyComplete
-=======
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Fachada.dll
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Fachada.pdb
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\Repositorio.dll.config
@@ -512,4 +510,3 @@ C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDepo
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\WcfRegActividad.pdb
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\bin\WcfRegActividad.dll.config
 C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\ClubDeportivo\obj\Debug\ClubDeportivo.csproj.CopyComplete
->>>>>>> respaldoMartinaMerge

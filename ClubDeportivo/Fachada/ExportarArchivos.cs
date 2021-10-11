@@ -49,7 +49,7 @@ namespace Fachada
                         sw.WriteLine(r.Nombre + delimitador
                                      + r.Socio + delimitador
                                      + r.Fecha.ToString("yyyy-MM-dd") + delimitador
-                                     + r.hora);
+                                     + r.Hora);
                     }
                 success = true;
             }

@@ -103,7 +103,7 @@ namespace Repositorio
                         Socio = (int)filas["socio"],
                         Nombre = (string)filas["Actividad"],
                         Fecha = (DateTime)filas["fecha"],
-                        hora = (int)filas["hora"],
+                        Hora = (int)filas["hora"],
                     });
                 }
                 return ingresos;

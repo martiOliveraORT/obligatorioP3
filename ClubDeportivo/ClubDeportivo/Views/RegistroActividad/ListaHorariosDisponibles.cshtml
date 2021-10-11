@@ -4,7 +4,7 @@
 
 <h2>ListaHorariosDisponibles</h2>
 <p>@ViewBag.msg</p>
-<table>
+<table class="table table-striped">
     <tr>
         <th>Id Actividad</th>
         <th>Nombre Actividad</th>
@@ -14,11 +14,11 @@
     @foreach (var item in ViewBag.res)
     {
      <tr>
-        <td>@item.Id</td>
+        <td>@item.Id</td> 
         <td>@item.Actividad</td>
         <td>@item.Hora</td>
         <td><form action="/RegistroActividad/IngresarActividad?cedula=@ViewBag.socio&actividad=@item.Actividad&hora=@item.Hora&id=@item.Id" method="post">
-            <input type="submit" value="Ingresar Actividad" />
+            <input  class="btn btn-primary" type="submit" value="Ingresar Actividad" />
             </form>
         </td>
      </tr>

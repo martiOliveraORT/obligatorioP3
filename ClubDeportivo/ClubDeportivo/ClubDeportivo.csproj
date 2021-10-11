@@ -90,10 +90,36 @@
   <ItemGroup>
     <Content Include="bin\ClubDeportivo.dll" />
     <Content Include="bin\ClubDeportivo.pdb" />
+    <Content Include="bin\Dominio.dll" />
+    <Content Include="bin\Dominio.pdb" />
+    <Content Include="bin\Fachada.dll" />
+    <Content Include="bin\Fachada.pdb" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Repositorio.dll" />
+    <Content Include="bin\Repositorio.pdb" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Helpers.xml" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Mvc.xml" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.Deployment.dll" />
+    <Content Include="bin\System.Web.Webpages.Deployment.xml" />
+    <Content Include="bin\System.Web.Webpages.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.dll" />
+    <Content Include="bin\System.Web.Webpages.Razor.xml" />
+    <Content Include="bin\System.Web.Webpages.xml" />
+    <Content Include="bin\WcfRegActividad.dll" />
+    <Content Include="bin\WcfRegActividad.pdb" />
     <Content Include="Content\Site.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="bin\ClubDeportivo.dll.config" />
+    <Content Include="bin\Repositorio.dll.config" />
+    <Content Include="bin\WcfRegActividad.dll.config" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -109,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\ExportarArchivosController.cs" />
     <Compile Include="Controllers\MensualidadController.cs" />
     <Compile Include="Controllers\RegistroActividadController.cs" />
     <Compile Include="Controllers\SocioController.cs" />
@@ -138,6 +165,7 @@
     <Content Include="Views\Socio\ListarSocios.cshtml" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
+    <Content Include="Views\ExportarArchivos\ExportarArchivos.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,6 +175,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\es\" />
+    <Folder Include="bin\roslyn\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

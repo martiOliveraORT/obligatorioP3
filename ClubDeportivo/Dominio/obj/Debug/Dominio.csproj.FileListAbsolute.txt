@@ -20,8 +20,17 @@ C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Dom
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
 C:\Users\Martina\Desktop\ORT\Programacion 3\repo\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
+<<<<<<< HEAD
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.dll
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\bin\Debug\Dominio.pdb
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
+C:\Users\Meerkat\Desktop\repositorioObligaotrio\obligatorioP3\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.AssemblyReference.cache
+=======
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Dominio\bin\Debug\Dominio.dll
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Dominio\bin\Debug\Dominio.pdb
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Dominio\obj\Debug\Dominio.csproj.CoreCompileInputs.cache
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Dominio\obj\Debug\Dominio.dll
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Dominio\obj\Debug\Dominio.pdb
+>>>>>>> respaldoMartinaMerge

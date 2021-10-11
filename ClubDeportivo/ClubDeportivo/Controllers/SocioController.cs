@@ -161,9 +161,8 @@ namespace ClubDeportivo.Controllers
             }
             var (socio, msj) = fSocio.BuscarSocio(Cedula);
             ViewBag.m = socio;
-            return View();
+            return View(socio);
         }
-
 
         [HttpGet]
         public ActionResult ModificarSocio()
@@ -186,11 +185,14 @@ namespace ClubDeportivo.Controllers
 
             string msj = fSocio.ModificarSocio(socio.Cedula, socio.Nombre, socio.FechaNac);
 
-            ViewBag.mensaje = msj;
-
             socio = new Socio(); //Limpia el formulario del view
 
-            return View("Detallle", socio);
+            return Redirect("ListarSocios");
+        }
+
+        public ActionResult BuscarSocioCedula()
+        {
+            return View();
         }
     }
 }

@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Dominio;
 using Repositorio;
+using System.Text.RegularExpressions;
+
 
 namespace Fachada
 {
@@ -97,9 +99,9 @@ namespace Fachada
             }
             else
             {
-                bool resNombre = ValidarNombre(resRegistro.Nombre);
-                bool resEdad = ValidarEdad(resRegistro.FechaNac);
-                if (resNombre && resEdad)
+                bool resNombre = ValidarNombre(nombre);
+                bool resEdad = ValidarEdad(fechaNac);
+                if(resNombre && resEdad)
                 {
                     resRegistro.Nombre = nombre;
                     resRegistro.FechaNac = fechaNac;
@@ -111,7 +113,7 @@ namespace Fachada
                     }
                     else
                     {
-                        respuesta = "Se modifico correctamente el socio " + resRegistro.Nombre;
+                        respuesta = "";
                     }
                 }
                 else
@@ -202,13 +204,20 @@ namespace Fachada
             bool respuesta = false;
             int largoNombre = nombreIngresado.Length;
             int inicio = nombreIngresado.IndexOf(" ");
-            int final = nombreIngresado.LastIndexOf(" ");
+            int final = nombreIngresado.IndexOf(" ", largoNombre - 1, 1);
 
-            if (largoNombre >= 6 && inicio != 0 && final != largoNombre && inicio >= 0)
+            if (largoNombre >= 6 && inicio != 0 && final != largoNombre - 1 && (inicio >= 0 || final >= 0))
             {
-                respuesta = true;
+                int cantEspacios = Regex.Matches(nombreIngresado, " ").Count;
+                if (cantEspacios > 1)
+                {
+                    respuesta = false;
+                }
+                else
+                {
+                    respuesta = true;
+                }
             }
-
             return respuesta;
         }
 

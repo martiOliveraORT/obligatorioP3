@@ -346,6 +346,60 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
+
+        public List<Horario> TraerTodosHorarios()
+        {
+            // Iniciamos la conexion con la BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+            List<Horario> horas = new List<Horario>();
+
+
+            // Seteamos la Query para la BD
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"SELECT * FROM Horarios"
+            };
+
+            // Setear el parametro CONNECTION con el valor del cn
+            // Esto es IMPORTANTE!!!! si no, no se conecta
+            cmd.Connection = cn; // SETEAR !!!
+
+            // Intentamos ejecutar la Query (Try)
+            // Si el resultado de las filas es 1(Se modifico), se realizo correctamente
+            // Si falla capturamos el error en el cathch y mostramos el mensajes (ex.message)
+
+            try
+            {
+                if (manejadorConexion.AbrirConexion(cn))
+                {
+                    SqlDataReader filas = cmd.ExecuteReader();
+                    while (filas.Read())
+                    {
+
+                        horas.Add(new Horario
+                        {
+                            Actividad = (string)filas["actividad"],
+                            Dia = (string)filas["dia"],
+                            Hora = (int)filas["hora"],
+
+                        });
+                    }
+                }
+                return horas;
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return horas;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
         #endregion
     }
 }

@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExportarArchivos.cs" />
     <Compile Include="FachadaActividad.cs" />
     <Compile Include="FachadaMensualidad.cs" />
     <Compile Include="FachadaSocio.cs" />

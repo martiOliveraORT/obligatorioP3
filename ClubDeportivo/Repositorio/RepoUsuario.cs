@@ -67,7 +67,47 @@ namespace Repositorio
 
         public List<Usuario> TraerTodo()
         {
-            throw new NotImplementedException();
+
+            // Iniciamos la conexion con la BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+
+            List<Usuario> users = new List<Usuario>();
+
+            // Seteamos la Query para la BD
+            SqlCommand cmd = new SqlCommand
+            {
+
+                CommandText = @"SELECT * FROM usuarios "
+            };
+            cmd.Connection = cn;
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                SqlDataReader filas = cmd.ExecuteReader();
+                while (filas.Read())
+                {
+                    // Guardo la info de la tabla que necesito tener
+                    users.Add(new Usuario
+                    {
+                        Email = (string)filas["email"],
+                        Password = (string)filas["password"],
+
+
+                    });
+                }
+                return users;
+            }
+
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return users;
+            }
+            finally
+            {
+                manejadorConexion.CerrarConexion(cn);
+            }
         }
 
         public Usuario BuscarPorId(int id)

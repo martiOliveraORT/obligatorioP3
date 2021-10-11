@@ -84,7 +84,7 @@ namespace Repositorio
             SqlCommand cmd = new SqlCommand
             {
                 // Los traemos asi para tener la mas reciente arriba
-                CommandText = @"SELECT * FROM RegistrosActividad ORDER BY fecha DESC"
+                CommandText = @"SELECT * FROM RegistroActividad ORDER BY fecha DESC"
             };
             cmd.Connection = cn;// SETEAR!!
 
@@ -103,6 +103,7 @@ namespace Repositorio
                         Socio = (int)filas["socio"],
                         Nombre = (string)filas["Actividad"],
                         Fecha = (DateTime)filas["fecha"],
+                        hora = (int)filas["hora"],
    
                     });
                 }

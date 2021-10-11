@@ -4,13 +4,23 @@
 
 <h2>ListaHorariosDisponibles</h2>
 <p>@ViewBag.msg</p>
+<table>
+    <tr>
+        <th>Id Actividad</th>
+        <th>Nombre Actividad</th>
+        <th>Hora comienzo</th>
+    </tr>
 
-@foreach (var item in ViewBag.res)
-{
-    <p>@item.Actividad</p>
-    <p>@item.Hora</p>
-    <p>@item.Id</p>
-    <form action="/RegistroActividad/IngresarActividad?cedula=@ViewBag.socio&actividad=@item.Actividad&hora=@item.Hora&id=@item.Id" method="post">
-        <input type="submit" value="Ingresar Actividad" />
-    </form>
-}
+    @foreach (var item in ViewBag.res)
+    {
+     <tr>
+        <td>@item.Id</td>
+        <td>@item.Actividad</td>
+        <td>@item.Hora</td>
+        <td><form action="/RegistroActividad/IngresarActividad?cedula=@ViewBag.socio&actividad=@item.Actividad&hora=@item.Hora&id=@item.Id" method="post">
+            <input type="submit" value="Ingresar Actividad" />
+            </form>
+        </td>
+     </tr>
+    }
+</table>

@@ -214,10 +214,9 @@ namespace Repositorio
             throw new NotImplementedException();
         }
 
-        RepoSocio repoSocio = new RepoSocio();
-
         public Mensualidad BuscarPorId(int ci)
         {
+            RepoSocio repoSocio = new RepoSocio();
             Conexion manejadorConexion = new Conexion();
             SqlConnection cn = manejadorConexion.CrearConexion();
 
@@ -317,5 +316,127 @@ namespace Repositorio
                 manejadorConexion.CerrarConexion(cn);
             }
         }
+
+        public List<PaseLibre> AllPaseLibres()
+        {
+            //INICIO LA CONEXION CON LA BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+            List<PaseLibre> pases = new List<PaseLibre>();
+            RepoSocio repoSocio = new RepoSocio();
+            Socio soc = new Socio();
+
+
+
+            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"SELECT * FROM mensualidad WHERE tipo ='l'"
+            };
+            //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
+
+            cmd.Connection = cn;
+
+            //INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
+            //SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETORNAMOS TRUE
+            //SI FALLA TRAEMOS Y MSOTRAMOS EL ERROR
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                SqlDataReader filas = cmd.ExecuteReader();
+
+
+                while (filas.Read())
+                {
+                    int ci = (int)filas["socio"];
+                    soc = repoSocio.BuscarPorId(ci);
+
+                    pases.Add(new PaseLibre
+                    {
+                        Id = (int)filas["id"],
+                        Costo = (decimal)filas["costo"],
+                        Fecha = (DateTime)filas["fecha"],
+                        Socio = soc,
+                        Descuento = (decimal)filas["descuento"],
+                        Vencimiento = (DateTime)filas["vencimiento"],
+                    });
+                }
+
+                return pases;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return pases;
+            }
+            finally
+            {
+                // CERRAMOS LA CONEXION
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
+
+        public List<Cuponera> AllCuponeras()
+        {
+            //INICIO LA CONEXION CON LA BD
+            Conexion manejadorConexion = new Conexion();
+            SqlConnection cn = manejadorConexion.CrearConexion();
+            List<Cuponera> cuponeras = new List<Cuponera>();
+            RepoSocio repoSocio = new RepoSocio();
+            Socio soc = new Socio();
+
+
+
+            //CREAMOS LA QUERY A EJECUTAR LUEGO
+            SqlCommand cmd = new SqlCommand
+            {
+                CommandText = @"SELECT * FROM mensualidad WHERE tipo ='c'"
+            };
+            //SETEAMOS LOS DATOS CON SU RESPECTIVA VARIABLE
+
+            cmd.Connection = cn;
+
+            //INTENTAMOS EJECUTAR LA QUERY CORRECTAMENTE
+            //SI EL RESULTADO DE LA FILA ES 1, GUARDAMOS LA VARIABLE Y RETORNAMOS TRUE
+            //SI FALLA TRAEMOS Y MSOTRAMOS EL ERROR
+            try
+            {
+                manejadorConexion.AbrirConexion(cn);
+                SqlDataReader filas = cmd.ExecuteReader();
+
+
+                while (filas.Read())
+                {
+                    int ci = (int)filas["socio"];
+                    soc = repoSocio.BuscarPorId(ci);
+
+                    cuponeras.Add(new Cuponera
+                    {
+                        Id = (int)filas["id"],
+                        Costo = (decimal)filas["costo"],
+                        Fecha = (DateTime)filas["fecha"],
+                        Socio = soc,
+                        Descuento = (decimal)filas["descuento"],
+                        Vencimiento = (DateTime)filas["vencimiento"],
+                        IngresosDisponibles = (int)filas["ingresosDisp"]
+                    }) ;
+                }
+
+                return cuponeras;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return cuponeras;
+            }
+            finally
+            {
+                // CERRAMOS LA CONEXION
+                manejadorConexion.CerrarConexion(cn);
+            }
+        }
+
     }
 }
+
+

@@ -1,18 +1,17 @@
 ﻿@using Dominio;
 
 
+
 @{
     ViewBag.Title = "AltaCuponera";
 }
 
 <h2>AltaCuponera</h2>
 
-<form action="/mensualidad/AltaCuponera" method="post">
-    <label for="ci">Documento de identidad: </label>
-    <input type="number" class="form-control" required name="ci" placeholder="Ingrese documento de identidad" /> <br />
+<form action="/mensualidad/MostrarCostoCup?ci=@ViewBag.ci" method="post"> 
     <label for="ingDisp">Ingrese cantidad de actividades: </label>
     <input type="number" class="form-control" required name="ingDisp" placeholder="Ingrese cantidad" /><br />
-    <button class="btn btn-primary" type="submit">Registrar Cuponera</button>
+    <button class="btn btn-primary" type="submit">Calcular total</button>
 </form>
 
 @if (ViewBag.msj != null) 

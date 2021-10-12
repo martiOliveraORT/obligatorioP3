@@ -86,21 +86,21 @@ namespace ClubDeportivo.Controllers
         }
 
         [HttpPost]
-        public ActionResult Detalle(int Cedula)
+        public ActionResult Detalle(int? Cedula)
         {
             if (Session["Logueado"] == null)
             {
                 return Redirect("/usuario/Login");
-            }
+            }            
 
-            var (Socio, msj) = fSocio.BuscarSocio(Cedula);
+            var (Socio, msj) = fSocio.BuscarSocio((int)Cedula);
             if(Socio == null)
             {
                 ViewBag.m = msj;
                 return View("BuscarSocio");
             }
             //buscar mensualidad de socio
-            var (mens, msjMens) = fMensualidad.BuscarMesualidad(Cedula);
+            var (mens, msjMens) = fMensualidad.BuscarMesualidad((int)Cedula);
 
             if (mens == null)
             {

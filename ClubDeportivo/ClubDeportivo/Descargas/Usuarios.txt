@@ -1,3 +1,2 @@
 admin@admin.com|UABhAHMAcwB3AG8AcgBkADEA
-admin@email.com|Password1
-admin2@admin.com|QQAgACAAIAAgACAAIAAgACAAIAAgAHAAMQA=
+asd3@asd.com|SABvAGwAYQAxADIAMwA0AA==

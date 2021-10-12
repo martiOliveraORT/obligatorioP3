@@ -4,7 +4,7 @@
 2|gimansio|5|5|80|50
 3|handball|5|5|60|30
 7|natacion|2|2|90|15
-6|tenis|5|5|75|0
+6|tenis|5|5|75|8
 4|volley|5|5|60|30
 9|yoga|15|15|90|20
 8|zumba|12|12|70|20

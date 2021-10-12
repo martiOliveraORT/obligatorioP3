@@ -10,23 +10,42 @@ namespace Fachada
 {
     public class FachadaMensualidad
     {
+        FachadaSocio fachadaSocio = new FachadaSocio();
+        RepoMensualidad repoMensualidad = new RepoMensualidad();
+        public (decimal, decimal, decimal, int) MostrarCostoPL(int ci)
+        {
+            Socio socio = fachadaSocio.ValidarSocio(ci);          
+            var (valorCuota, porcDescuento, antig) = repoMensualidad.TraerValoresPaseLibre();
+            decimal costo = CalcularCostoPL(porcDescuento, valorCuota, antig, socio.FechaIngreso);
+
+            return (costo, porcDescuento, valorCuota, antig);
+        }    
+
+        public (decimal, decimal, decimal, int) MostrarCostoCup(int ci, int ingresosDisp)
+        {
+            Socio socio = fachadaSocio.ValidarSocio(ci);
+            var (precioUnitario, porcDescuento, cantAct) = repoMensualidad.TraerValoresCuponera();
+            decimal costo = CalcularCostoCup(porcDescuento, precioUnitario, cantAct, ingresosDisp);
+
+            return (costo, porcDescuento, precioUnitario, cantAct);
+        }
+
         public (bool, string) AltaMensualidadPL(int ci)
         {
             bool ok = false;
             string msj;
-            RepoMensualidad repoMensualidad = new RepoMensualidad();
-            FachadaSocio fachadaSocio = new FachadaSocio();
+          
             DateTime fechaHoy = DateTime.Today;
             DateTime fechaVencimiento = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1).AddDays(-1);
             Socio socio = fachadaSocio.ValidarSocio(ci);            
             decimal costo;
             Mensualidad mens = repoMensualidad.BuscarPorId(ci);
-            if (mens != null)
+            if (socio != null)
             {
-                if (mens.Vencimiento < fechaHoy)
+                if (mens != null)
                 {
-                    if (socio != null)
-                    {
+                    if (mens.Vencimiento < fechaHoy)
+                    {                         
                         var (valorCuota, porcDescuento, antig) = repoMensualidad.TraerValoresPaseLibre();
                         costo = CalcularCostoPL(porcDescuento, valorCuota, antig, socio.FechaIngreso);
                         PaseLibre ps = new PaseLibre()
@@ -37,8 +56,35 @@ namespace Fachada
                              Vencimiento = fechaVencimiento,
                              Descuento = porcDescuento
                         };
-                        ok = repoMensualidad.AltaPaseLibre(ps); 
+                        ok = repoMensualidad.AltaPaseLibre(ps);                         
+
+                        if (ok)
+                        {
+                            msj = "Se registro el pase libre con exito";
+                        }
+                        else
+                        {
+                            msj = "No fue posible registrar el pase libre";
+                        }
                     }
+                    else
+                    {
+                        msj = "Este usuario ya tiene una mensualidad activa";
+                    }
+                }
+                else
+                {
+                    var (valorCuota, porcDescuento, antig) = repoMensualidad.TraerValoresPaseLibre();
+                    costo = CalcularCostoPL(porcDescuento, valorCuota, antig, socio.FechaIngreso);
+                    PaseLibre ps = new PaseLibre()
+                    {
+                        Costo = costo,
+                        Fecha = fechaHoy,
+                        Socio = socio,
+                        Vencimiento = fechaVencimiento,
+                        Descuento = porcDescuento
+                    };
+                    ok = repoMensualidad.AltaPaseLibre(ps);
 
                     if (ok)
                     {
@@ -49,16 +95,11 @@ namespace Fachada
                         msj = "No fue posible registrar el pase libre";
                     }
                 }
-                else
-                {
-                    msj = "Este usuario ya tiene una mensualidad activa";
-                }
             }
-            else
-            {
+            else 
+            {    
                 msj = "La cedula ingresada no existe en el registro";
             }
-
             return (ok, msj);
         }
 
@@ -71,34 +112,59 @@ namespace Fachada
                 msj = "La cantidad de actividades debe ser mayor a 8 y menor de 60";
             }
             else
-            {
-                RepoMensualidad repoMensualidad = new RepoMensualidad();
-                FachadaSocio fachadaSocio = new FachadaSocio();
+            {              
                 DateTime fechaHoy = DateTime.Today;
                 DateTime fechaVencimiento = new DateTime(DateTime.Today.Year, DateTime.Today.Month, 1).AddMonths(1).AddDays(-1);
                 Socio socio = fachadaSocio.ValidarSocio(ci);
                 decimal costo;
                 Mensualidad mens = repoMensualidad.BuscarPorId(ci);
-
-                if (mens != null)
+                if (socio != null)
                 {
-                    if (mens.Vencimiento < fechaHoy)
+                    if (mens != null)
                     {
-                        if (socio != null)
-                        {
+                        if (mens.Vencimiento < fechaHoy)
+                        {                         
                             var (precioUnitario, porcDescuento, cantAct) = repoMensualidad.TraerValoresCuponera();
                             costo = CalcularCostoCup(porcDescuento, precioUnitario, cantAct, ingresosDisp);
                             Cuponera cup = new Cuponera()
                             {
-                                 Costo = costo,
-                                 Fecha = fechaHoy,
-                                 Socio = socio,
-                                 Vencimiento = fechaVencimiento,
-                                 IngresosDisponibles = ingresosDisp,
-                                 Descuento = porcDescuento
+                                Costo = costo,
+                                Fecha = fechaHoy,
+                                Socio = socio,
+                                Vencimiento = fechaVencimiento,
+                                IngresosDisponibles = ingresosDisp,
+                                Descuento = porcDescuento
                             };
                             ok = repoMensualidad.AltaCuponera(cup);                
+                        
+                            if (ok)
+                            {
+                                msj = "Se registro la cuponera con exito";
+                            }
+                            else
+                            {
+                                msj = "No fue posible registrar la cuponera";
+                            }
                         }
+                        else
+                        {
+                            msj = "Este usuario ya tiene una mensualidad activa";
+                        }
+                    }
+                    else
+                    {
+                        var (precioUnitario, porcDescuento, cantAct) = repoMensualidad.TraerValoresCuponera();
+                        costo = CalcularCostoCup(porcDescuento, precioUnitario, cantAct, ingresosDisp);
+                        Cuponera cup = new Cuponera()
+                        {
+                            Costo = costo,
+                            Fecha = fechaHoy,
+                            Socio = socio,
+                            Vencimiento = fechaVencimiento,
+                            IngresosDisponibles = ingresosDisp,
+                            Descuento = porcDescuento
+                        };
+                        ok = repoMensualidad.AltaCuponera(cup);
 
                         if (ok)
                         {
@@ -108,10 +174,6 @@ namespace Fachada
                         {
                             msj = "No fue posible registrar la cuponera";
                         }
-                    }
-                    else
-                    {
-                        msj = "Este usuario ya tiene una mensualidad activa";
                     }
                 }
                 else
@@ -151,12 +213,33 @@ namespace Fachada
             return res;
         }
 
-        public static decimal CalcularCostoPL(decimal porcDescuento, decimal valorCuota, int antig, DateTime fchIng)
+        public bool AplicaDescPL(DateTime fchIng, int antig)
         {
-            decimal costo;         
+            bool ok = false;
             DateTime hoy = DateTime.Today;
             DateTime fchAntig = fchIng.AddMonths(antig);
             if (hoy > fchAntig)
+            {
+                ok = true;
+            }
+
+            return ok;
+        }
+
+        public bool AplicaDescCup(int ingDisp, int cantAct)
+        {
+            bool ok = false;
+            if (ingDisp > cantAct)
+            {
+                ok = true;
+            }
+            return ok;
+        }
+
+        public decimal CalcularCostoPL(decimal porcDescuento, decimal valorCuota, int antig, DateTime fchIng)
+        {
+            decimal costo;                 
+            if (AplicaDescPL(fchIng, antig))
             {
                 decimal descuento = (porcDescuento * valorCuota) / 100;
                 costo = valorCuota - descuento;
@@ -168,11 +251,11 @@ namespace Fachada
             return costo;
         }
 
-        public static decimal CalcularCostoCup(decimal porcDescuento, decimal precioUnitario, int cantAct, int ingDisp)
+        public decimal CalcularCostoCup(decimal porcDescuento, decimal precioUnitario, int cantAct, int ingDisp)
         {
             decimal costo;
             decimal precioTotal = precioUnitario * ingDisp;
-            if (ingDisp > cantAct)
+            if (AplicaDescCup(ingDisp, cantAct))
             {
                 decimal descuento = (porcDescuento * precioTotal) / 100;
                 costo = precioTotal - descuento;

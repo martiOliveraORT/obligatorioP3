@@ -29,8 +29,20 @@
     <button class="btn btn-primary" type="submit">Modificar datos</button>
 </form>
 
+<hr />
 
-<p>@ViewBag.msj</p>
+<h4>Busqueda</h4>
+
+<form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
+    <label for="fecha">Buscar ingresos por dia</label>
+    <input class="form-control" type="date" required name="fecha" value="fecha" /><br />
+    <button class="btn btn-primary" type="submit">Buscar registros</button>
+</form>
+
+<hr />
+
+<h4>Acciones de Socio</h4>
+
 @if (!Model.Estado)
 {
     <a href="DarDeAltaSocio?cedula=@Model.Cedula&estado=1">Dar de alta</a>
@@ -39,24 +51,14 @@ else
 {
     if (!ViewBag.tieneMensualidad)
     {
-        <a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a>
-        <a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a>
-        <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
-            <label>Ingrese el dia del mes</label>
-            <input class="form-control" type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" /><br />
-            <button class="btn btn-primary" type="submit">Ir a detalle</button>
-        </form>
+        <p><a href="/mensualidad/AltaCuponera?ci=@Model.Cedula">Pagar Cuponera</a></p>
+        <p><a href="/mensualidad/AltaPaseLibre?ci=@Model.Cedula">Pagar Pase Libre</a></p>
     }
     else
     {
-        <a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a>
-        <form action="/socio/ListarActividades?cedula=@Model.Cedula" method="post">
-            <label>Ingrese el dia del mes</label>
-            <input class="form-control" type="number" required name="dia" placeholder="Ingrese dia del mes" value="dia" /><br />
-            <button class="btn btn-primary" type="submit">Ir a detalle</button>
-        </form>
+        <p><a href="/RegistroActividad/ListaHorariosDisponibles?cedula=@Model.Cedula">Ingresar Actividad</a></p>
     }
 
-    <a href="DarDeAltaSocio?cedula=@Model.Cedula&estado=0">Dar de baja</a>
+        <p><a href="DarDeAltaSocio?cedula=@Model.Cedula&estado=0">Dar de baja</a></p>
 }
 

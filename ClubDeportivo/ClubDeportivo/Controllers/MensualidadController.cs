@@ -30,7 +30,8 @@ namespace ClubDeportivo.Controllers
 
             if (ok)
             {
-                ViewBag.msj = msj;         
+                ViewBag.msj = msj;
+                return RedirectToAction("Detalle", new { Cedula = ci });
             }
             else
             {
@@ -39,7 +40,6 @@ namespace ClubDeportivo.Controllers
 
             return View();
         }
-
         public ActionResult AltaCuponera()
         {
             if (Session["Logueado"] == null)

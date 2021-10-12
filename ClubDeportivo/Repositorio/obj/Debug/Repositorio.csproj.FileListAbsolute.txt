@@ -56,4 +56,3 @@ C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Reposi
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Repositorio\bin\Debug\Dominio.dll
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Repositorio\bin\Debug\Dominio.pdb
 C:\Users\Fede\Desktop\Respaldo por si martina me rompe todo\ClubDeportivo\Repositorio\obj\Debug\Repositorio.csproj.CopyComplete
-C:\Users\Fede\Documents\ORT\Semestre 3\P3\Obligatorio1 P3\obligatorioP3\ClubDeportivo\Repositorio\obj\Debug\Repositorio.csproj.CopyComplete

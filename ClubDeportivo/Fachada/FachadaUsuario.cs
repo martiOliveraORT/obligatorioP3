@@ -14,10 +14,17 @@ namespace Fachada
         {
             RepoUsuario repoUser = new RepoUsuario();
             Usuario user = repoUser.BuscarPorEmail(email);
-            string desEncriptada = DesEncriptar(user.Password);
-            if (desEncriptada == password)
+            if (user != null)
             {
-                return user;
+                string desEncriptada = DesEncriptar(user.Password);
+                if (desEncriptada == password)
+                {
+                    return user;
+                }
+                else
+                {
+                    return user = null;
+                }
             }
             else
             {
@@ -112,12 +119,14 @@ namespace Fachada
             string letrasMayus = "ABCDEFGHIJKLMNÑOPKRSTUVWXYZ";
             string letrasMin = letrasMayus.ToLower();
             string numeros = "0123456789";
+            string espacio = " ";
 
             bool mayus = Comparador(password, letrasMayus);
             bool minus = Comparador(password, letrasMin);
             bool num = Comparador(password, numeros);
+            bool esp = !Comparador(password, espacio);
 
-            if (password.Length >= 6 && mayus && minus && num)
+            if (password.Length >= 6 && mayus && minus && num && esp)
             {
                 ok = true;
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -118,7 +118,7 @@ namespace ClubDeportivo.Controllers
             }
             return View();
         }
-               
+             
         public ActionResult AltaCuponera(int? ci)
         {
             if (Session["Logueado"] == null)

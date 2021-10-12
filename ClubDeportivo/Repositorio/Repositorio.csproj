@@ -43,6 +43,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="obj\Debug\.NETFramework,Version=v4.7.2.AssemblyAttributes.cs" />
     <Compile Include="RepoRegistroActividad.cs" />
     <Compile Include="Conexion.cs" />
     <Compile Include="IRepositorio.cs" />
@@ -60,6 +61,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\Repositorio.dll.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\Dominio.dll" />
+    <Content Include="bin\Debug\Dominio.pdb" />
+    <Content Include="bin\Debug\Repositorio.dll" />
+    <Content Include="bin\Debug\Repositorio.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

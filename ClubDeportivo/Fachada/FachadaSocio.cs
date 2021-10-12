@@ -134,12 +134,9 @@ namespace Fachada
             return (socios, mensaje);
         }
 
-        public List<RegistroActividad> BuscarActividadesPorSocio(int cedula, int dia)
+        public List<RegistroActividad> BuscarActividadesPorSocio(int cedula, DateTime fecha)
         {
-            DateTime hoy = DateTime.Now;
-            int mes = hoy.Month;
-            int year = hoy.Year;
-            DateTime fecha = new DateTime(year, mes, dia);
+            fecha.ToString("yyyy-MM-dd");
             RepoRegistroActividad repo = new RepoRegistroActividad();
             List<RegistroActividad> lista = repo.ingresoSocioPorFecha(cedula, fecha);
             return lista;
